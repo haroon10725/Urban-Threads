@@ -1,0 +1,11 @@
+.head p {
+    font-family: "Roboto", sans-serif;
+}
+.s1 {
+    font-family: "Ubuntu", sans-serif;
+}
+
+.slider {
+    /* scrollbar-width:thin; */
+    scrollbar-color: pink white;
+}
