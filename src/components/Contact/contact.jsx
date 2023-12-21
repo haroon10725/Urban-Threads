@@ -1,0 +1,17 @@
+import "./contact.css"
+
+export default function Contact() {
+    return (
+        <div className="h-[10rem] mt-12 bg-[#f2cfcf]">
+            <div className="text-form-box h-full flex flex-col justify-center items-center">
+                <p className="mb-1 font-bold text-2xl">Unlock 10% Savings</p>
+                <p className="mb-2 font-semibold">Stay in the Loop + Enjoy 10% Off Your First Order</p>
+                <div className="mb-1 form">
+                    <form action="">
+                        <input className="font-bold h-[2rem] p-2" name="emailaddress" type="text" placeholder="Enter email here"></input>
+                    </form>
+                </div>
+            </div>
+        </div>
+    )
+}
