@@ -5,11 +5,11 @@ import pic2 from "../../assets/pic6.jpeg"
 
 function Poster({ backimg }) {
     return (
-        <div className="flex h-[21rem] w-[27rem] xl:h-[32rem] xl:w-[38rem]" style={{ backgroundImage: `url(${backimg})`,backgroundSize:"cover"}}>
-            <div className="textbox flex flex-col justify-end mb-8 ml-6">
-                <p className="mb-3 text-white">Lorem Ipsum</p>
-                <p className="mb-3 text-white">Lorem Ipsum is simply dummy text text of the printing</p>
-                <button className="mb-3 w-1/3 font-bold h-[13%] bg-[#f2cfcf]" style={{fontFamily:"Inika,sanns-serif"}}>SHOP NOW</button>
+        <div className="flex w-[19rem] h-[15rem] sm:h-[21rem] sm:w-[27rem] xl:h-[32rem] xl:w-[38rem]" style={{ backgroundImage: `url(${backimg})`, backgroundSize: "cover" }}>
+            <div className="textbox flex flex-col justify-end mb-2 ml-4 sm:mb-8 sm:ml-6">
+                <p className="text-sm text-white sm:text-md mb-3">Lorem Ipsum</p>
+                <p className="text-sm text-white sm:text-md mb-3">Lorem Ipsum is simply dummy text text of the printing</p>
+                <button className="mb-3 w-1/3 font-bold text-sm sm:text-md h-[13%] bg-[#f2cfcf]" style={{ fontFamily: "Inika,sanns-serif" }}>SHOP NOW</button>
             </div>
         </div>
     )

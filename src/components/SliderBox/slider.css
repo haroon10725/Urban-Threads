@@ -1,6 +1,8 @@
 .head p {
-    font-family: "Roboto", sans-serif;
+    font-family: "Inria", sans-serif;
+    font-weight: 500;
 }
+
 .s1 {
     font-family: "Ubuntu", sans-serif;
 }
