@@ -11,16 +11,19 @@ import Footer from "./components/Footer/footer.jsx";
 import "./App.css"
 import { ThemeProvider } from "@material-tailwind/react";
 
+import App from "./App.jsx";
+
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <ThemeProvider>
-      <Navbar />
+      <App />
+      {/* <Navbar />
       <Frontier />
       <Slider />
       <Categories />
       <Bottom />
       <Contact />
-      <Footer />
+      <Footer /> */}
     </ThemeProvider>
   </React.StrictMode>
 );
