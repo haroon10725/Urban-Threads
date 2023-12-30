@@ -16,37 +16,20 @@ function Page() {
         <div className="root">
             <Navbar />
             <br />
-            <div className="ml-[3rem] head mb-3">
-                <p className="text-2xl mx-2 mb-2">Shopping Cart</p>
+            <div className="ml-[1rem] lg:ml-[3rem] head mb-3">
+                <p className="text-2xl mx-2 mb-2 hidden lg:block">Shopping Cart</p>
+                <p className="text-2xl mb-1 lg:hidden">Cart</p>
             </div>
             <div className="flex justify-between">
-                <div className="flex flex-col w-[75%]">
+                <div className="flex flex-col lg:w-[75%]">
                     <Labels />
-                    <Entry productimg={pic2} price={60.72} quantity={2} subtotal={2000} />
-                    <Entry productimg={pic2} price={60.72} quantity={2} subtotal={2000} />
-                    <Entry productimg={pic2} price={60.72} quantity={2} subtotal={2000} />
-                    <Entry productimg={pic2} price={60.72} quantity={2} subtotal={2000} />
-                    <Entry productimg={pic2} price={60.72} quantity={2} subtotal={2000} />
-                    <Entry productimg={pic2} price={60.72} quantity={2} subtotal={2000} />
-                    <Entry productimg={pic2} price={60.72} quantity={2} subtotal={2000} />
-                    <Entry productimg={pic2} price={60.72} quantity={2} subtotal={2000} />
-                    <Entry productimg={pic2} price={60.72} quantity={2} subtotal={2000} />
-                    <Entry productimg={pic2} price={60.72} quantity={2} subtotal={2000} />
-                    <Entry productimg={pic2} price={60.72} quantity={2} subtotal={2000} />
+                    <Entry productimg={pic2} price={"Shinu Sleeve Shirt"} qty={"1"} quantity={"Color: Gray"} subtotal={"Size: XS(US)/ M(Japan)"} />
                 </div>
                 <CartPanel />
             </div>
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <Footer />
+            <div className="footer relative top-[34.5rem]">
+                <Footer />
+            </div>
         </div>
     )
 }

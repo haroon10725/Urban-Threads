@@ -3,7 +3,7 @@ import "./entrylabels.css"
 export default function Labels() {
     return (
 
-        <div className="labels h-[5rem] grid grid-cols-10 ml-[3rem]">
+        <div className="hidden labels h-[5rem] lg:grid grid-cols-10  ml-[3rem]">
             <div className="empty border-black border-y">
             </div>
             <div className="flex justify-center border-black border-y items-center col-span-2 product">
