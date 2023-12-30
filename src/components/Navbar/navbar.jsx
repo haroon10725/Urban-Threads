@@ -8,19 +8,19 @@ export default function Navbar() {
             <div className="cupboard bg-blue-200 w-full h-[0rem] transition ease-in-out delay-150"></div>
             <div className="h-[4rem] lg:hidden">
                 <div className="h-[4rem] flex flex-row justify-around items-center">
-                    <div className="flex h-[2.5rem] flex-col justify-evenly hamburg cursor-pointer">
-                        <div className="line1 bg-black h-[4px] w-[1.5rem] rounded-full"></div>
-                        <div className="line2 bg-black h-[4px] w-[1.5rem] rounded-full"></div>
-                        <div className="line3 bg-black h-[4px] w-[1.5rem] rounded-full"></div>
+                    <div className="flex h-[2rem] sm:h-[2.5rem] flex-col justify-evenly hamburg cursor-pointer">
+                        <div className="line1 bg-black h-[3px] w-[1.5rem] sm:h-[4px] sm:w-[1.5rem] rounded-full"></div>
+                        <div className="line2 bg-black h-[3px] w-[1.5rem] sm:h-[4px] sm:w-[1.5rem] rounded-full"></div>
+                        <div className="line3 bg-black h-[3px] w-[1.5rem] sm:h-[4px] sm:w-[1.5rem] rounded-full"></div>
                     </div>
                     <div className="header">
-                        <p className="h1 text-2xl ml-[2rem]">URBAN THREADS</p>
+                        <p className="h1 text-xl sm:text-2xl sm:ml-[2rem]">URBAN THREADS</p>
                     </div>
-                    <div className="cart-search flex flex-row justify-between w-[4.5rem]">
-                        <div className="search w-[1.5rem] h-[1.5rem]">
+                    <div className="cart-search flex flex-row justify-between w-[3.5rem] sm:w-[4.5rem]">
+                        <div className="search w-[1.4rem] h-[1.4rem] sm:w-[1.5rem] sm:h-[1.5rem]">
                             <img src={cart}></img>
                         </div>
-                        <div className="cart w-[1.5rem] h-[1.5rem]">
+                        <div className="cart w-[1.4rem] h-[1.4rem] sm:w-[1.5rem] sm:h-[1.5rem]">
                             <img src={search}></img>
                         </div>
                     </div>

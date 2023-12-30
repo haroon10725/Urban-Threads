@@ -6,7 +6,7 @@
     background-image:url(../../assets/pic1.jpeg);
     background-size:cover;
 } */
-p{
-    font-family:'Inika',sans-serif;
+.textbox p{
+    font-family:'Roboto',sans-serif;
     
 }
