@@ -3,10 +3,10 @@ import { useParams } from 'react-router-dom';
 import Navbar from '../components/Navbar/navbar.jsx';
 import Footer from '../components/Footer/footer.jsx';
 
-import Slider from 'react-slick';
+// import Slider from 'react-slick';
 
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
+// import 'slick-carousel/slick/slick.css';
+// import 'slick-carousel/slick/slick-theme.css';
 
 
 const data = {
