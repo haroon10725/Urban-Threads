@@ -2,7 +2,7 @@ import "./cartpanel.css"
 
 export default function CartPanel({ subcost, shipping, totalcost, }) {
     return (
-        <div className="lg:flex flex-col justify-between w-1/4 h-[25rem] border-black border-l hidden px-[2rem]">
+        <div className="hidden lg:flex flex-col justify-between w-1/4 h-[25rem] border-black border-l px-[2rem]">
             <div className="flex flex-col">
                 <div className="head">
                     <p className="text-xl py-3">Cart Totals</p>

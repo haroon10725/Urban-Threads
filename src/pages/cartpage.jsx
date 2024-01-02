@@ -20,10 +20,10 @@ function Page() {
                 <p className="text-2xl mx-2 mb-2 hidden lg:block">Shopping Cart</p>
                 <p className="text-2xl mb-1 lg:hidden">Cart</p>
             </div>
-            <div className="flex justify-between">
-                <div className="flex flex-col lg:w-[75%]">
+            <div className="flex">
+                <div className="w-full flex flex-col lg:w-[75%]">
                     <Labels />
-                    <Entry productimg={pic2} price={"Shinu Sleeve Shirt"} qty={"1"} quantity={"Color: Gray"} subtotal={"Size: XS(US)/ M(Japan)"} />
+                    <Entry productimg={pic2}  name={"Shinu Sleeve Shirt"} qty={"1"} quantity={"Color: Gray"} subtotal={"$39.95"} price={"$39.95"} colour={"Gray"} size={"Size: XS(US)/ M(Japan)"} />
                 </div>
                 <CartPanel />
             </div>
