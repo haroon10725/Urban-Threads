@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom';
 
 import Navbar from '../components/Navbar/navbar.jsx';
 import Footer from '../components/Footer/footer.jsx';
+import fetchData from '../util/API.jsx';
 
 // import Slider from 'react-slick';
 
@@ -158,6 +159,9 @@ const Carousel = ({ images }) => {
 
 const Overview = () => {
     let { productUUID } = useParams();
+
+    let x = fetchData();
+    console.log(x)
 
     return (
         <div>
