@@ -1,3 +1,5 @@
+import React, { useState } from 'react';
+
 import { useParams } from 'react-router-dom';
 
 import Navbar from '../components/Navbar/navbar.jsx';
@@ -9,7 +11,6 @@ import fetchData from '../util/API.jsx';
 // import 'slick-carousel/slick/slick.css';
 // import 'slick-carousel/slick/slick-theme.css';
 
-
 const data = {
     "title": "Unstitched Light Brown Printed Lawn 3 Piece",
     "article_number": "EWU23A1",
@@ -20,6 +21,7 @@ const data = {
     "real_price": 4590.0,
     "discounted_price": 2754.0,
     "discount_pc": 40.0,
+    "colors": ["Blue", "Purple", "Red", "Green", "Yellow"],
     "available_sizes": ['XL', 'L'],
     "images": [
         "https://edenrobe.com/cdn/shop/products/23_W_WomanUnStitchedAllure_EWU23A1-26318_1_9228c0fe-bd11-4810-a97a-a421af8171b5.jpg?v=1701506748",
@@ -157,42 +159,203 @@ const Carousel = ({ images }) => {
     );
 };
 
-const Overview = () => {
-    let { productUUID } = useParams();
+const RatingStars = ({ averageRating }) => {
+    const totalStars = 5; // Total number of stars
+    const fullStars = Math.floor(averageRating); // Number of full stars
+    const decimalPart = averageRating - fullStars; // Decimal part to determine if a half-star is needed
+    let hasHalfStar = decimalPart >= 0.5;
+    let emptyStars = totalStars - fullStars - hasHalfStar;
 
-    let x = fetchData();
-    console.log(x)
+    // Array to store the star elements
+    const stars = [];
+    // Add full stars
+    for (let i = 0; i < fullStars; i++) {
+        stars.push(<i key={`filled-${i}`} className="text-xl fas fa-star text-amber-600" />);
+    }
+
+    // Add half star if present
+    if (hasHalfStar) {
+        stars.push(
+            <i className="text-xl fas fa-star-half-alt text-amber-600"></i>
+        );
+    }
+
+    for (let i = 0; i < emptyStars; i++) {
+        stars.push(<i key={`empty-${i}`} className="text-xl far fa-star text-amber-600" />);
+    }
 
     return (
-        <div>
-            Work In Progress ...
+        <div className="flex items-center gap-1">
+            {stars.map((star, index) => (
+                <span key={index}>{star}</span>
+            ))}
+        </div>
+    );
+}
+
+const Pricing = ({ realPrice, discountedPrice, discount }) => {
+    return (
+        <div className="flex flex-col gap-1 text-2xl">
+            {discount > 0 ? (
+                <div className="flex items-center gap-6">
+                    <div>
+                        <span className="text-red-400 line-through">{`Rs. ${realPrice}`}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                        <span className="font-bold" >{`Rs. ${discountedPrice}`}</span>
+                        <span className="font-bold bg-yellow-600 px-2 py-1 rounded-full text-xs">{`${discount}%`} Off</span>
+                    </div>
+                </div>
+            ) : (
+                <div>
+                    <span>{`Rs. ${realPrice}`}</span>
+                </div>
+            )}
+            <div>
+                <p className="text-[0.6rem] text-gray-600"><span className="text-green-800 font-bold">*</span> Shipping calculated at checkout.</p>
+            </div>
+        </div>
+    );
+}
+
+const ColorSelector = ({ colors }) => {
+    const [selectedColor, setSelectedColor] = useState('');
+
+    const handleColorChange = (color) => {
+        setSelectedColor(color);
+    };
+
+    return (
+        <div className="flex flex-col gap-3">
+            <h2 className="font-bold">COLOR</h2>
+            <div className="flex space-x-2">
+                {colors.map((color, index) => (
+                    <button
+                        key={index}
+                        className={`border-2 text-sm px-4 py-1 ${selectedColor === color ? `'bg-${color.toLowerCase()}-50 border-${color.toLowerCase()}-500 text-${color.toLowerCase()}-500 font-bold'` : 'border-gray-300 bg-gray-100 text-gray-700'}`}
+                        onClick={() => handleColorChange(color)}
+                    >{color}</button>
+                ))}
+            </div>
+        </div>
+    );
+};
+
+const SizeSelector = ({ sizes }) => {
+    const [selectedSize, setSelectedSize] = useState('');
+
+
+    const handleSizeChange = (e) => {
+        setSelectedSize(e.target.value);
+    };
+
+    return (
+        <div className="flex flex-col gap-3">
+            <h2 className="font-bold">SIZE</h2>
+            <form className="space-x-4">
+                {sizes.map((size) => (
+                    <label key={size} className="inline-block">
+                        <input
+                            type="radio"
+                            name="size"
+                            value={size}
+                            checked={selectedSize === size}
+                            onChange={handleSizeChange}
+                            className="hidden"
+                        />
+                        <button
+                            type="button"
+                            className={`border-2 text-sm p-1 w-9 h-9 ${selectedSize === size ? 'bg-purple-50 border-purple-500 text-purple-500 font-bold' : 'border-gray-300 bg-gray-100 text-gray-700'
+                                }`}
+                            onClick={() => setSelectedSize(size)}
+                        >
+                            {size}
+                        </button>
+                    </label>
+                ))}
+            </form>
+        </div>
+    );
+};
+
+const QuantitySelector = () => {
+    const [quantity, setQuantity] = useState(1);
+
+    const handleQuantityChange = (value) => {
+        const newQuantity = quantity + value;
+        if (newQuantity >= 1) {
+            setQuantity(newQuantity);
+        }
+    };
+
+    return (
+        <div className="flex flex-col gap-3">
+            <h2 className="font-bold">QUANTITY</h2>
+            <div className="flex items-center rounded-md h-9 w-fit bg-gray-100">
+                <button className="bg-gray-300 px-3 py-1 hover:bg-gray-400 active:bg-gray-500" onClick={() => handleQuantityChange(-1)}>
+                    <i className="fas fa-minus font-bold"></i>
+                </button>
+                <span className="mx-4">{quantity}</span>
+                <button className="bg-gray-300 px-3 py-1 hover:bg-gray-400 active:bg-gray-500" onClick={() => handleQuantityChange(1)}>
+                    <i className="fas fa-plus font-bold"></i>
+                </button>
+            </div>
+        </div>
+    );
+};
+
+const Overview = () => {
+    // let { productUUID } = useParams(767);
+
+    // let x = fetchData();
+    // console.log(x)
+
+    return (
+        <div className="p-6 font-lexend text-ut-gray">
+            <div className="text-sm font-bold">
+                <i className="fa fa-arrow-left" aria-hidden="true"></i><span className="px-3">BACK</span>
+            </div>
             <div className="flex">
                 <div className="flex-1 bg-blue-200 p-4">
                     {/* <Carousel images={data['images']} /> */}
                 </div>
-                <div className="flex-1 bg-green-200 p-4">
-                    <h2>{"Women"}</h2>
-                    <h1>{data['title']}</h1>
-                    <p>{data['unique_identifier']}</p>
-                    <p>{data['stock_keeping_unit']}</p>
-                    <p>{data['average_rating']}</p>
-                    <p>{data['total_reviews']}</p>
-                    <p>{data['real_price']}</p>
-                    <p>{data['discount_pc']}</p>
-                    <p>{data['discounted_price']}</p>
-                    <p>{data['short_description']}</p>
-                    <h3>Color</h3>
-                    <div>
+                <div className="flex-1 flex flex-col p-4 gap-5">
+                    <div id="headings" className="flex flex-col gap-2 font-bold">
+                        <h2 className="text-sm text-teal-700">{"Women".toUpperCase()}</h2>
+                        <h1 className="text-2xl">{data['title']}</h1>
+                        <h3 className="text-xs text-gray-800">{data['article_number']}</h3>
                     </div>
-                    <h3>Sizes</h3>
-                    <div>
-                        {
-                            data['available_sizes'].map((size) => (
-                                <p>{size}</p>
-                            ))
-                        }
+                    <div id="ratings" className="flex gap-6 font-bold text-gray-800">
+                        <span>
+                            <RatingStars averageRating={data['average_rating']} />
+                        </span>
+                        <span>
+                            {data['average_rating']} | {data['total_reviews']} REVIEWS
+                        </span>
                     </div>
-                    <button className='bg-orange-700 text-white px-4 py-2 rounded'>Add to Cart</button>
+                    <div id="price">
+                        <Pricing realPrice={data['real_price']} discountedPrice={data['discounted_price']} discount={data['discount_pc']} />
+                    </div>
+                    <div id="metaInfo" className="text-gray-600 text-xs">
+                        <p>
+                            <b>UUID:</b> {data['unique_identifier']}
+                        </p>
+                        <p>
+                            <b>SKU:</b> {data['stock_keeping_unit']}
+                        </p>
+                    </div>
+                    <div id="color">
+                        <ColorSelector colors={data['colors']} />
+                    </div>
+                    <div id="size">
+                        <SizeSelector sizes={data['available_sizes']} />
+                    </div>
+                    <div id="quantity">
+                        <QuantitySelector />
+                    </div>
+                    <div id="addToCart">
+                        <button className='px-4 py-2 w-full bg-orange-600 hover:bg-orange-700 active:bg-orange-800 text-white'>Add to Cart</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -201,21 +364,21 @@ const Overview = () => {
 
 
 const Body = () => {
-    let { productUUID } = useParams();
+    // let { productUUID } = useParams();
 
     return (
-        <Overview productUUID={productUUID} />
+        <Overview productUUID={776} />
     )
 };
 
 
 function ProductOverview() {
-    let { productUUID } = useParams();
+    // let { productUUID } = useParams();
 
     return (
         <div>
             <Navbar />
-            <Body productUUID={productUUID} />
+            <Body productUUID={889} />
             <Footer />
         </div>
     );
