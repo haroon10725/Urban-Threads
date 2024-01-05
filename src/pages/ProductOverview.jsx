@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 import { useParams } from 'react-router-dom';
+import Chart from 'chart.js/auto';
+import { Bar } from 'react-chartjs-2';
 
 import Navbar from '../components/Navbar/navbar.jsx';
 import Footer from '../components/Footer/footer.jsx';
@@ -319,7 +321,7 @@ const Overview = () => {
                 </div>
                 <div className="flex-1 flex flex-col py-16 px-4 gap-5">
                     <div id="headings" className="flex flex-col gap-2 font-bold">
-                        <h2 className="text-sm text-teal-700">{"Men".toUpperCase()}</h2>
+                        <h2 className="text-sm text-teal-700">{"Men".toUpperCase()} | {"Trousers".toUpperCase()}</h2>
                         <h1 className="text-2xl">{data['title']}</h1>
                         <h3 className="text-xs text-gray-800">{data['article_number']}</h3>
                     </div>
@@ -398,11 +400,120 @@ const Legal = () => {
     );
 }
 
+const DistributionChart = ({ reviews }) => {
+    const starCounts = {
+        1: 0,
+        2: 0,
+        3: 0,
+        4: 0,
+        5: 0
+    };
+
+    const totalReviews = data['total_reviews'];
+
+    reviews.forEach(review => {
+        const { rating } = review;
+        starCounts[rating]++;
+    });
+
+    const starPercentages = {};
+    for (let key in starCounts) {
+        starPercentages[key] = (starCounts[key] / totalReviews) * 100;
+    }
+
+    console.log(starPercentages)
+
+    return (
+        <div className="flex flex-col gap-2 py-4">
+            <div className="flex items-center">
+                <div className="w-20 text-sm">Best</div>
+                <div className="flex h-3 w-full bg-gray-200">
+                    <div className={`flex w-[${starPercentages[5]}%] px-10 bg-green-800`} value={starCounts[5]}>&nbsp;</div>
+                </div>
+            </div>
+
+            <div className="flex items-center">
+                <div className="w-20 text-sm">Good</div>
+                <div className="flex h-3 w-full bg-gray-200">
+                    <div className={`flex w-[${starPercentages[4]}%] px-10 bg-lime-800`} value={starCounts[4]}>&nbsp;</div>
+                </div>
+            </div>
+
+            <div className="flex items-center">
+                <div className="w-20 text-sm">Average</div>
+                <div className="flex h-3 w-full bg-gray-200">
+                    <div className={`flex w-[${starPercentages[3]}%] px-10 bg-yellow-800`} value={starCounts[3]}>&nbsp;</div>
+                </div>
+            </div>
+
+            <div className="flex items-center">
+                <div className="w-20 text-sm">Poor</div>
+                <div className="flex h-3 w-full bg-gray-200">
+                    <div className={`flex w-[${starPercentages[2]}%] px-10 bg-orange-800`} value={starCounts[2]}>&nbsp;</div>
+                </div>
+            </div>
+
+            <div className="flex items-center">
+                <div className="w-20 text-sm">Worst</div>
+                <div className="flex h-3 w-full bg-gray-200">
+                    <div className={`flex w-[${starPercentages[1]}%] px-10 bg-red-800`} value={starCounts[1]}>&nbsp;</div>
+                </div>
+            </div>
+
+        </div>
+    )
+};
+
+const Comment = ({ name, rating, comment }) => {
+    return (
+        <div className="comment bg-gray-200 p-4 border-l-4 border-pink-800">
+            <h4 className="font-bold text-sm text-purple-500">{name}</h4>
+            <p>Rating: {rating}</p>
+            <p className="text-sm">{comment}</p>
+        </div>
+    );
+};
+
+const CommentList = ({ comments }) => {
+    return (
+        <div className="comment-section">
+            <div className="comments flex flex-col gap-4">
+                {comments.map((comment, index) => (
+                    <Comment
+                        key={index}
+                        name={comment.name}
+                        rating={comment.rating}
+                        comment={comment.comment}
+                    />
+                ))}
+            </div>
+        </div>
+    );
+};
+
 const Reviews = () => {
     return (
         <div>
-            <h2 className="font-bold text-ut-gray">REVIEWS</h2>
-            <p>Work in progress ...</p>
+            <div className="flex text-ut-gray">
+                <div className="w-1/3 px-12 py-6 flex flex-col gap-3">
+                    <h2 className="font-bold text-ut-gray text-xl">REVIEWS</h2>
+                    <div className="flex justify-between items-center">
+                        <h1 className="font-bold text-5xl">{data['average_rating']}</h1>
+                        <RatingStars averageRating={data['average_rating']} />
+                    </div>
+                    <div>
+
+                        {data['total_reviews']} REVIEWS
+                        <DistributionChart reviews={data['reviews']} />
+                    </div>
+                </div>
+                <div className="w-2/3 px-12 py-6 flex flex-col gap-3">
+                    <h2 className="font-bold text-ut-gray text-xl">COMMENTS</h2>
+                    <div className="max-h-96 overflow-y-scroll bg-gray-100 p-2">
+                        <CommentList comments={data['reviews']} />
+                    </div>
+                </div>
+            </div>
         </div>
     );
 }
@@ -413,7 +524,9 @@ const Body = () => {
     return (
         <div className="flex flex-col px-8 py-12 font-lexend">
             <Overview productUUID={776} />
+            <br />
             <Legal />
+            <br />
             <Reviews />
         </div>
     )
