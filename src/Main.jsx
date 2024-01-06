@@ -12,8 +12,7 @@ import Payment from "./pages/Payment"
 import ProductOverview from "./pages/ProductOverview"
 import OrderPage from "./pages/orderpage/Orderpage";
 import Error from "./pages/errors/404"
-
-
+import Error404 from "./pages/errors/404"
 
 
 export default function App() {
@@ -27,6 +26,9 @@ export default function App() {
         <Route path="overview" element={<ProductOverview />} />
         <Route path="order" element={<OrderPage />} />
         <Route path="error" element={<Error />} />
+        <Route path="payment" element={<Payment />} />
+        <Route path="products/:main_category/:sub_category/:productUUID" element={<ProductOverview />} />
+        <Route path="*" element={<Error404 />} />
       </Routes>
     </BrowserRouter >
   )
@@ -40,5 +42,3 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     </ThemeProvider>
   </React.StrictMode>
 );
-
-
