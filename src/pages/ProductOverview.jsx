@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 
 import { useParams } from 'react-router-dom';
-import Chart from 'chart.js/auto';
+// import Chart from 'chart.js/auto';
 // import { Bar } from 'react-chartjs-2';
 
 import Navbar from '../components/Navbar/navbar.jsx';
