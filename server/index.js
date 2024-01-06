@@ -32,6 +32,7 @@ app.get('/data/fetch', async (_req, res, _next) => {
   });
 });
 
+<<<<<<< HEAD
 
 app.get('/data/fetch', async (_req, res, _next) => {
   const apiKey = 'ZOlIbr32F9Z8KGoIeMIBcqSiLUuRVJQnuZrUF91R97398K4IRrfIa9uIedM6d7PJ';
@@ -63,6 +64,8 @@ app.get('/data/fetch', async (_req, res, _next) => {
 });
 
 
+=======
+>>>>>>> 564edd7eadaa0c25bfa01c8f3be3c2e37f2620a4
 
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);

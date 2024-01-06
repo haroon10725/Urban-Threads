@@ -10,8 +10,11 @@ import CartPage from "./pages/cartpage"
 import Product from "./pages/Productpage";
 import Payment from "./pages/Payment"
 import ProductOverview from "./pages/ProductOverview"
+<<<<<<< HEAD
 import OrderPage from "./pages/orderpage/Orderpage";
 import Error from "./pages/errors/404"
+=======
+>>>>>>> 564edd7eadaa0c25bfa01c8f3be3c2e37f2620a4
 import Error404 from "./pages/errors/404"
 
 
@@ -21,11 +24,15 @@ export default function App() {
       <Routes>
         <Route index element={<LandingPage />} />
         <Route path="cart" element={<CartPage />} />
+<<<<<<< HEAD
         <Route path="product" element={<Product />} />
         <Route path="paymnet" element={<Payment />} />
         <Route path="overview" element={<ProductOverview />} />
         <Route path="order" element={<OrderPage />} />
         <Route path="error" element={<Error />} />
+=======
+        <Route path="products" element={<Product />} />
+>>>>>>> 564edd7eadaa0c25bfa01c8f3be3c2e37f2620a4
         <Route path="payment" element={<Payment />} />
         <Route path="products/:main_category/:sub_category/:productUUID" element={<ProductOverview />} />
         <Route path="*" element={<Error404 />} />
