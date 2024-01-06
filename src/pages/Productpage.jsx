@@ -57,12 +57,12 @@ export default function ProductPage() {
                 <div className="flex">
                     <FakePanel />
                     <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3">
-                        <Product pic={starpic} prodpic={pic8} productname={"Gelyu Harem Pants-Black"} reviews={"942"} newprice={"$49.95"} />
-                        <Product pic={starpic} prodpic={pic8} productname={"Gelyu Harem Pants-Black"} reviews={"942"} newprice={"$49.95"} />
-                        <Product pic={starpic} prodpic={pic8} productname={"Gelyu Harem Pants-Black"} reviews={"942"} newprice={"$49.95"} />
-                        <Product pic={starpic} prodpic={pic8} productname={"Gelyu Harem Pants-Black"} reviews={"942"} newprice={"$49.95"} />
-                        <Product pic={starpic} prodpic={pic8} productname={"Gelyu Harem Pants-Black"} reviews={"942"} newprice={"$49.95"} />
-                        <Product pic={starpic} prodpic={pic8} productname={"Gelyu Harem Pants-Black"} reviews={"942"} newprice={"$49.95"} />
+                        <Product pic={starpic} prodpic={pic4} productname={"Gelyu Harem Pants-Black"} reviews={"942"} newprice={"$49.95"} />
+                        <Product pic={starpic} prodpic={pic4} productname={"Gelyu Harem Pants-Black"} reviews={"942"} newprice={"$49.95"} />
+                        <Product pic={starpic} prodpic={pic4} productname={"Gelyu Harem Pants-Black"} reviews={"942"} newprice={"$49.95"} />
+                        <Product pic={starpic} prodpic={pic4} productname={"Gelyu Harem Pants-Black"} reviews={"942"} newprice={"$49.95"} />
+                        <Product pic={starpic} prodpic={pic4} productname={"Gelyu Harem Pants-Black"} reviews={"942"} newprice={"$49.95"} />
+                        <Product pic={starpic} prodpic={pic4} productname={"Gelyu Harem Pants-Black"} reviews={"942"} newprice={"$49.95"} />
                     </div>
                 </div>
             </div>

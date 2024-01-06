@@ -5,6 +5,9 @@ import CartPanel from "../components/Cartpanel/cartpanel.jsx"
 import Entry from "../components/Entries/entry.jsx"
 import pic2 from "../assets/pic2.jpeg"
 
+// importing cookies.js file
+import cookies from "../Cookies/cookies.js"
+
 export default function CartPage() {
     return (
         <Page />

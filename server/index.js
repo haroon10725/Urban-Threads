@@ -1,6 +1,20 @@
 const express = require('express');
+const cookieParser = require('cookie-parser');
+const { json } = require('react-router-dom');
 const app = express();
 const port = 3000;
+
+
+app.use(express.static('build'));
+app.use(cookieParser());
+
+// cart details to be used here
+const cartDetails = "Details";
+
+app.get('/cookie', function (req, res) {
+  res.cookie("cart", cartDetails);
+  res.send(req.cookies);
+});
 
 
 app.get('/data/fetch', async (_req, res, _next) => {
@@ -31,6 +45,9 @@ app.get('/data/fetch', async (_req, res, _next) => {
     console.error('Fetch error:', error);
   });
 });
+
+
+
 
 
 app.listen(port, () => {
