@@ -2,11 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 
 import { useParams } from 'react-router-dom';
 import Chart from 'chart.js/auto';
-<<<<<<< HEAD
 // import { Bar } from 'react-chartjs-2';
-=======
-import { Bar } from 'react-chartjs-2';
->>>>>>> 564edd7eadaa0c25bfa01c8f3be3c2e37f2620a4
 
 import Navbar from '../components/Navbar/navbar.jsx';
 import Footer from '../components/Footer/footer.jsx';
