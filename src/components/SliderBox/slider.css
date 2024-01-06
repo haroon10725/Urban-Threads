@@ -1,13 +1,15 @@
 .head p {
     font-family: "Inria", sans-serif;
+    font-family:"Lexend",sans-serif;
     font-weight: 500;
 }
 
 .s1 {
-    font-family: "Ubuntu", sans-serif;
+    font-family: "Lexend", sans-serif;
 }
 
 .slider {
     /* scrollbar-width:thin; */
-    scrollbar-color: pink white;
+    scrollbar-width:none;
+    height:120%;
 }

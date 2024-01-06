@@ -10,6 +10,7 @@ import CartPage from "./pages/cartpage"
 import Product from "./pages/Productpage";
 import Payment from "./pages/Payment"
 import ProductOverview from "./pages/ProductOverview"
+import OrderPage from "./pages/orderpage/Orderpage";
 import Error from "./pages/errors/404"
 
 
@@ -24,6 +25,7 @@ export default function App() {
         <Route path="product" element={<Product />} />
         <Route path="paymnet" element={<Payment />} />
         <Route path="overview" element={<ProductOverview />} />
+        <Route path="order" element={<OrderPage />} />
         <Route path="error" element={<Error />} />
       </Routes>
     </BrowserRouter >

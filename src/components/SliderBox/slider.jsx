@@ -24,8 +24,8 @@ export default function SliderBox() {
             <div className="head flex justify-center mb-4">
                 <p className="text-lg ml-3 sm:text-xl sm:ml-0">NEW AND TRENDING</p>
             </div>
-            <div className="slider overflow-x-scroll" style={{ height: "120%" }}>
-                <div className="ml-4 scroller w-[350%] h-[24vh] sm:h-[36vh] md:h-[48vh]">
+            <div className="slider overflow-x-scroll">
+                <div className="ml-4 scroller w-[350%] h-[28vh] sm:h-[36vh] md:h-[48vh]">
                     <Product backimg={pic1} name={"Safari Shirts"} cost={"$60.0"}/>
                     <Product backimg={pic2} name={"Safari Shirts"} cost={"$60.0"}/>
                     <Product backimg={pic3} name={"Safari Shirts"} cost={"$60.0"}/>
