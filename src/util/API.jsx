@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 const apiKey = 'ZOlIbr32F9Z8KGoIeMIBcqSiLUuRVJQnuZrUF91R97398K4IRrfIa9uIedM6d7PJ';
 
 const fetchData = async () => {

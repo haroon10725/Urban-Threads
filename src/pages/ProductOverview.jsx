@@ -1,12 +1,8 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState } from 'react';
 
-import { useParams } from 'react-router-dom';
-// import Chart from 'chart.js/auto';
-// import { Bar } from 'react-chartjs-2';
 
 import Navbar from '../components/Navbar/navbar.jsx';
 import Footer from '../components/Footer/footer.jsx';
-import fetchData from '../util/API.jsx';
 
 import Slider from 'react-slick';
 
