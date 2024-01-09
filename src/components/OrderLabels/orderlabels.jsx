@@ -8,7 +8,6 @@ export default function OrderLabels() {
                 <p className="a1 font-bold text-xl flex justify-center items-center">Today's Order</p>
             </div>
             <Pagination />
-
         </div>
     )
 }
