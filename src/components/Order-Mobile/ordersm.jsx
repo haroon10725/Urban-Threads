@@ -1,8 +1,9 @@
 // Importing Pages
 import Footer from "../Footer/footer"
 
-
+// Importing externals
 import "./ordersm.css"
+import ChangeStar from "./ordersm"
 
 // importing icons
 import home from ".././../assets/home.png"
@@ -14,6 +15,7 @@ import tick from "../../assets/check.png"
 import address from "../../assets/location.png"
 import emptystar from "../../assets/emptystar.png"
 import yellowstar from "../../assets/yellowstar.png"
+
 
 export default function OrderSm() {
     return (
@@ -145,11 +147,11 @@ export default function OrderSm() {
                     </div>
                     <div className="flex justify-start">
                         <div className="address flex justify-between px-2 w-[8rem]">
-                            <img className="w-4 h-4 cursor-pointer" src={emptystar} alt="" />
-                            <img className="w-4 h-4 cursor-pointer" src={emptystar} alt="" />
-                            <img className="w-4 h-4 cursor-pointer" src={emptystar} alt="" />
-                            <img className="w-4 h-4 cursor-pointer" src={emptystar} alt="" />
-                            <img className="w-4 h-4 cursor-pointer" src={emptystar} alt="" />
+                            <img className="s-1 w-4 h-4 cursor-pointer" src={emptystar} onClick={() => ChangeStar(0)} alt="" />
+                            <img className="s-1 w-4 h-4 cursor-pointer" src={emptystar} onClick={() => ChangeStar(1)} alt="" />
+                            <img className="s-1 w-4 h-4 cursor-pointer" src={emptystar} onClick={() => ChangeStar(2)} alt="" />
+                            <img className="s-1 w-4 h-4 cursor-pointer" src={emptystar} onClick={() => ChangeStar(3)} alt="" />
+                            <img className="s-1 w-4 h-4 cursor-pointer" src={emptystar} onClick={() => ChangeStar(4)} alt="" />
                         </div>
                     </div>
                 </div>

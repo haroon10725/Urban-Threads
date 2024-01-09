@@ -20,12 +20,10 @@ export default function ProductPage() {
         <div className="page">
             <Navbar />
             <div className="overflow-x-scroll mt-[1rem] h-[3rem] lg:hidden " style={{ scrollbarWidth: "none" }}>
-                <div className="flex justify-evenly w-[35rem]">
-
-                    <Refiner icon={sort} type={"Sort"} />
-                    <Refiner icon={filter} type={"Filter"} />
-                    <Refiner icon={size} type={"Size"} />
-                    <Refiner icon={color} type={"Color"} />
+                <div className="flex justify-center w-full">
+                    <form className="w-3/4" action="">
+                        <input className="rounded-full border border-yellow-500 px-3 py-2 w-full" type="text" name="searchbar" placeholder="Search" />
+                    </form>
                 </div>
             </div>
             <div className="flex flex-col items-center mt-[1rem]">
