@@ -23,7 +23,7 @@ function Page() {
             <div className="flex">
                 <div className="w-full flex flex-col lg:w-[75%]">
                     <Labels />
-                    <Entry productimg={pic2}  name={"Shinu Sleeve Shirt"} qty={"1"} quantity={"Color: Gray"} subtotal={"$39.95"} price={"$39.95"} colour={"Gray"} size={"Size: XS(US)/ M(Japan)"} />
+                    <Entry productimg={pic2} name={"Shinu Sleeve Shirt"} qty={"1"} quantity={"Color: Gray"} subtotal={"$39.95"} price={"$39.95"} colour={"Gray"} size={"Size: XS(US)/ M(Japan)"} />
                 </div>
                 <CartPanel />
             </div>

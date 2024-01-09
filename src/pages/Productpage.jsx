@@ -71,8 +71,6 @@ export default function ProductPage() {
     )
 }
 
-
-
 function Category({ header }) {
     return (
         <div className="header flex justify-start lg:justify-center lg:mb-[4rem] w-5/6 xl:w-[89%] mb-5">
