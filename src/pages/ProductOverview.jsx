@@ -322,9 +322,9 @@ const QuantitySelector = () => {
 const Overview = ({ mainCategory, subCategory }) => {
     return (
         <div className="text-ut-gray gap-2 md:gap-4">
-            <div className="flex flex-col md:flex-row">
+            <div className="flex flex-col lg:flex-row">
                 <div className="flex-1 overflow-hidden py-16 px-12">
-                    <div className="px-6 md:px-32">
+                    <div className="px-6 md:px-24 lg:px-4 xl:px-8 2xl:px-32">
                         <div>
                             <Carousel images={data['images']} />
                         </div>
