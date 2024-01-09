@@ -1,17 +1,39 @@
-import "./footer.css"
+import React from 'react';
+import { FaFacebook, FaInstagram, FaTwitter } from 'react-icons/fa';
 
-export default function Footer() {
-    return (
-        <div className="flex flex-col items-center footer bg-black h-[6rem] lg:flex-row lg:h-[5rem]">
-            <p className="mt-4 mb-2 text-[#a4a4a4] text-[0.6rem] sm:text-xs lg:hidden">©2023, URBAN THREADS. ALL RIGHTS RESERVED.</p>
-            <div className="flex justify-evenly w-full">
-                <p className="text-[#a4a4a4] sm:text-xs hidden lg:inline-block">©2023, URBAN THREADS. ALL RIGHTS RESERVED.</p>
-                <p className="text-[#a4a4a4] text-[0.6rem] sm:text-xs">.REFUND</p>
-                <p className="text-[#a4a4a4] text-[0.6rem] sm:text-xs">.PRIVACY POLICY</p>
-                <p className="text-[#a4a4a4] text-[0.6rem] sm:text-xs">.TERMS OF SERVICE</p>
-            </div>
+const Footer = () => {
+  return (
+    <footer className="bg-stone-900 text-gray-300 py-12">
+      <div className="container mx-auto px-4 flex flex-col lg:flex-row gap-8">
+        <div className="mb-8">
+          <h3 className="text-lg font-bold mb-4">About Urban Threads</h3>
+          <p className="text-sm text-justify w-full lg:w-1/2">
+            Urban Threads is your go-to destination for modern and stylish clothing for men and boys.
+            We connect you with top-notch merchants to bring the latest fashion trends right to your doorstep.
+          </p>
         </div>
-    )
-}
 
-// lg:w-[30rem] lg:ml-2
+        <div>
+          <h3 className="text-lg font-bold mb-4">Follow Us</h3>
+          <div className="flex space-x-4">
+            <a href="#" className="text-xl hover:text-gray-400">
+              <FaFacebook />
+            </a>
+            <a href="#" className="text-xl hover:text-gray-400">
+              <FaInstagram />
+            </a>
+            <a href="#" className="text-xl hover:text-gray-400">
+              <FaTwitter />
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div className="text-center mt-8">
+        <p className="text-xs">&copy; {new Date().getFullYear()} Urban Threads. All rights reserved.</p>
+      </div>
+    </footer>
+  );
+};
+
+export default Footer;
