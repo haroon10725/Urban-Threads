@@ -1,14 +1,11 @@
-import React, { useState, useRef, useEffect } from 'react';
-
-import { useParams } from 'react-router-dom';
-// import Chart from 'chart.js/auto';
-// import { Bar } from 'react-chartjs-2';
+import React, { useState } from 'react';
 
 import Navbar from '../components/Navbar/navbar.jsx';
 import Footer from '../components/Footer/footer.jsx';
-import fetchData from '../util/API.jsx';
 
 import Slider from 'react-slick';
+import { FaStar, FaStarHalfAlt, FaRegStar } from 'react-icons/fa';
+import { IconContext } from 'react-icons';
 
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -44,7 +41,7 @@ const data = {
         "https://edenrobe.com/cdn/shop/products/22_M_MenBlazer_EMTB22-6771_6.jpg?v=1701517101"
     ],
     "total_reviews": 12,
-    "average_rating": 3.2,
+    "average_rating": 3.8,
     "reviews": [
         {
             "rating": 2,
@@ -156,31 +153,53 @@ const Carousel = ({ images }) => {
     );
 };
 
-const RatingStars = ({ averageRating }) => {
-    const totalStars = 5; // Total number of stars
-    const fullStars = Math.floor(averageRating); // Number of full stars
-    const decimalPart = averageRating - fullStars; // Decimal part to determine if a half-star is needed
+const Star = (props) => {
+    const { color="#eab308", size="24px" } = props;
+    return (
+        <IconContext.Provider value={{ color: color, size: size }}>
+            <FaStar />
+        </IconContext.Provider>
+    );
+}
+
+const StarHalfAlt = (props) => {
+    const { color="#eab308", size="24px" } = props;
+    return (
+        <IconContext.Provider value={{ color: color, size: size }}>
+            <FaStarHalfAlt />
+        </IconContext.Provider>
+    );
+}
+
+const RegStar = (props) => {
+    const { color="#eab308", size="24px" } = props;
+    return (
+        <IconContext.Provider value={{ color: color, size: size }}>
+            <FaRegStar />
+        </IconContext.Provider>
+    );
+}
+
+const RatingStars = (props) => {
+    const { averageRating, color, size} = props;
+
+    const totalStars = 5;
+    const fullStars = Math.floor(averageRating);
+    const decimalPart = averageRating - fullStars;
     let hasHalfStar = decimalPart >= 0.5;
     let emptyStars = totalStars - fullStars - hasHalfStar;
-
-    // Array to store the star elements
     const stars = [];
-    // Add full stars
+
+    const classes = `text-${size} fill-${color}-500`
     for (let i = 0; i < fullStars; i++) {
-        stars.push(<i key={`filled-${i}`} className="text-xl fas fa-star text-amber-600" />);
+        stars.push(<Star color={color} size={size} />);
     }
-
-    // Add half star if present
     if (hasHalfStar) {
-        stars.push(
-            <i className="text-xl fas fa-star-half-alt text-amber-600"></i>
-        );
+        stars.push(<StarHalfAlt color={color} size={size} />);
     }
-
     for (let i = 0; i < emptyStars; i++) {
-        stars.push(<i key={`empty-${i}`} className="text-xl far fa-star text-amber-600" />);
+        stars.push(<RegStar color={color} size={size} />);
     }
-
     return (
         <div className="flex items-center gap-1">
             {stars.map((star, index) => (
@@ -200,7 +219,7 @@ const Pricing = ({ realPrice, discountedPrice, discount }) => {
                     </div>
                     <div className="flex items-center gap-2">
                         <span className="font-bold" >{`Rs. ${discountedPrice}`}</span>
-                        <span className="font-bold bg-yellow-600 px-2 py-1 rounded-full text-xs">{`${discount}%`} Off</span>
+                        <span className="font-bold bg-yellow-400 px-2 py-1 rounded-full text-xs">{`${discount}%`} Off</span>
                     </div>
                 </div>
             ) : (
@@ -209,7 +228,7 @@ const Pricing = ({ realPrice, discountedPrice, discount }) => {
                 </div>
             )}
             <div>
-                <p className="text-[0.6rem] text-gray-600"><span className="text-green-800 font-bold">*</span> Shipping calculated at checkout.</p>
+                <p className="text-[0.6rem] text-neutral-600"><span className="text-green-800 font-bold">*</span> Shipping calculated at checkout.</p>
             </div>
         </div>
     );
@@ -229,7 +248,7 @@ const ColorSelector = ({ colors }) => {
                 {colors.map((color, index) => (
                     <button
                         key={index}
-                        className={`border-2 text-sm px-4 py-1 ${selectedColor === color ? `'bg-purple-50 border-purple-500 text-purple-500 font-bold'` : 'border-gray-400 bg-gray-100 text-gray-800'}`}
+                        className={`border-2 text-sm px-4 py-1 ${selectedColor === color ? `'bg-purple-50 border-purple-500 text-purple-500 font-bold'` : 'border-neutral-400 bg-neutral-100 text-neutral-800'}`}
                         onClick={() => handleColorChange(color)}
                     >{color}</button>
                 ))}
@@ -262,7 +281,7 @@ const SizeSelector = ({ sizes }) => {
                         />
                         <button
                             type="button"
-                            className={`border-2 text-sm p-1 w-9 h-9 ${selectedSize === size ? 'bg-purple-50 border-purple-500 text-purple-500 font-bold' : 'border-gray-400 bg-gray-100 text-gray-800'}`}
+                            className={`border-2 text-sm p-1 w-9 h-9 ${selectedSize === size ? 'bg-purple-50 border-purple-500 text-purple-500 font-bold' : 'border-neutral-400 bg-neutral-100 text-neutral-800'}`}
                             onClick={() => setSelectedSize(size)}
                         >
                             {size}
@@ -287,12 +306,12 @@ const QuantitySelector = () => {
     return (
         <div className="flex flex-col gap-3">
             <h2 className="font-bold">QUANTITY</h2>
-            <div className="flex items-center h-9 w-fit bg-gray-100 border-2 border-gray-400">
-                <button className="bg-gray-300 px-3 py-1 hover:bg-gray-400 active:bg-gray-500" onClick={() => handleQuantityChange(-1)}>
+            <div className="flex items-center h-9 w-fit bg-neutral-100 border-2 border-neutral-400">
+                <button className="bg-neutral-300 px-3 py-1 hover:bg-neutral-400 active:bg-neutral-500" onClick={() => handleQuantityChange(-1)}>
                     <i className="fas fa-minus font-bold"></i>
                 </button>
                 <span className="mx-4 w-8 text-center">{quantity}</span>
-                <button className="bg-gray-300 px-3 py-1 hover:bg-gray-400 active:bg-gray-500" onClick={() => handleQuantityChange(1)}>
+                <button className="bg-neutral-300 px-3 py-1 hover:bg-neutral-400 active:bg-neutral-500" onClick={() => handleQuantityChange(1)}>
                     <i className="fas fa-plus font-bold"></i>
                 </button>
             </div>
@@ -300,32 +319,24 @@ const QuantitySelector = () => {
     );
 };
 
-const Overview = () => {
-    // let { productUUID } = useParams(767);
-
-    // let x = fetchData();
-    // console.log(x)
-
+const Overview = ({ mainCategory, subCategory }) => {
     return (
-        <div className="text-ut-gray gap-4">
-            <div className="text-sm font-bold">
-                <i className="fa fa-arrow-left" aria-hidden="true"></i><span className="px-3">BACK</span>
-            </div>
-            <div className="flex">
-                <div className="flex-1 overflow-hidden">
-                    <div className="py-16 px-48">
+        <div className="text-ut-gray gap-2 md:gap-4">
+            <div className="flex flex-col lg:flex-row">
+                <div className="flex-1 overflow-hidden py-16 px-12">
+                    <div className="px-6 md:px-24 lg:px-4 xl:px-8 2xl:px-32">
                         <div>
                             <Carousel images={data['images']} />
                         </div>
                     </div>
                 </div>
-                <div className="flex-1 flex flex-col py-16 px-4 gap-5">
+                <div className="flex-1 flex flex-col py-16 px-12 gap-5">
                     <div id="headings" className="flex flex-col gap-2 font-bold">
-                        <h2 className="text-sm text-teal-700">{"Men".toUpperCase()} | {"Trousers".toUpperCase()}</h2>
+                        <h2 className="text-sm text-teal-700">{mainCategory} | {subCategory}</h2>
                         <h1 className="text-2xl">{data['title']}</h1>
-                        <h3 className="text-xs text-gray-800">{data['article_number']}</h3>
+                        <h3 className="text-xs text-neutral-800">{data['article_number']}</h3>
                     </div>
-                    <div id="ratings" className="flex gap-6 font-bold text-gray-800">
+                    <div id="ratings" className="flex gap-6 font-bold">
                         <span>
                             <RatingStars averageRating={data['average_rating']} />
                         </span>
@@ -336,7 +347,7 @@ const Overview = () => {
                     <div id="price">
                         <Pricing realPrice={data['real_price']} discountedPrice={data['discounted_price']} discount={data['discount_pc']} />
                     </div>
-                    <div id="metaInfo" className="text-gray-600 text-xs">
+                    <div id="metaInfo" className="text-neutral-600 text-xs">
                         <p>
                             <b>UUID:</b> {data['unique_identifier']}
                         </p>
@@ -355,7 +366,7 @@ const Overview = () => {
                     </div>
                     <br />
                     <div id="addToCart">
-                        <p className="text-[0.7rem] text-gray-600"><span className="text-green-500">*</span> Please note that the product appearance may vary from what is shown in the pictures.</p>
+                        <p className="text-[0.7rem] text-neutral-600"><span className="text-green-500">*</span> Please note that the product appearance may vary from what is shown in the pictures.</p>
                         <br />
                         <button className='px-4 py-2 w-full bg-pink-600 hover:bg-pink-700 active:bg-pink-800 text-white'>Add to Cart</button>
                     </div>
@@ -368,33 +379,45 @@ const Overview = () => {
 const Legal = () => {
     return (
         <div>
-            <div className="flex justify-between py-4 px-48 gap-16">
-                <div className="flex flex-col gap-4 text-center w-[640px]">
+            <div className="flex flex-col lg:flex-row justify-between py-4 px-8 lg:px-48 gap-16">
+                <div className="flex flex-col gap-4 text-center w-full lg:w-[640px]">
                     <i className="text-5xl text-teal-800 fas fa-shipping-fast"></i>
                     <h2 className="font-bold text-teal-800 text-md">SHIPPING POLICY</h2>
-                    <p className="text-sm text-gray-700">
+                    <p className="text-sm text-neutral-700">
                         Fast-track your experience with our expedited shipping,
                         delivering your product within 3-4 business days, ensuring your
                         purchase reaches you promptly and reliably.
                     </p>
                 </div>
-                <div className="flex flex-col gap-4 text-center w-[640px]">
+                <div className="flex flex-col gap-4 text-center w-full lg:w-[640px]">
                     <i className="text-5xl text-teal-800 fas fa-money-bill"></i>
                     <h2 className="font-bold text-teal-800 text-md">REFUND POLICY</h2>
-                    <p className="text-sm text-gray-700">You have a window of 2 business days from the date of delivery
+                    <p className="text-sm text-neutral-700">You have a window of 2 business days from the date of delivery
                         to request a refund for this product. If the item doesn't meet your
                         expectations, initiate a return within this timeframe for a full
                         refund.</p>
                 </div>
-                <div className="flex flex-col gap-4 text-center text-teal-800 w-[640px]">
+                <div className="flex flex-col gap-4 text-center text-teal-800 w-full lg:w-[640px]">
                     <i className="text-5xl text-teal-800 fas fa-user-tie"></i>
                     <h2 className="font-bold text-md">CONNECTING BUYERS & SELLERS</h2>
-                    <p className="text-sm text-gray-700">As a platform facilitating transactions between buyers and
+                    <p className="text-sm text-neutral-700">As a platform facilitating transactions between buyers and
                         sellers, we do not assume liability for products. The merchandise
                         holds no contractual obligation with our platform, and any
                         concerns about quality or liability should be addressed directly
                         with the seller.</p>
                 </div>
+            </div>
+        </div>
+    );
+}
+
+const Bar = ({ reviews, totalReviews, label, color }) => {
+    const starPercentage = Math.round((reviews / totalReviews) * 100);
+    return (
+        <div className="flex items-center">
+            <div className="w-20 text-sm">{label}</div>
+            <div className="flex h-3 w-full bg-neutral-200">
+                <div className={`w-[${starPercentage}%] bg-${color}-600`} value={reviews}>&nbsp;</div>
             </div>
         </div>
     );
@@ -408,85 +431,46 @@ const DistributionChart = ({ reviews }) => {
         4: 0,
         5: 0
     };
-
     const totalReviews = data['total_reviews'];
-
     reviews.forEach(review => {
         const { rating } = review;
         starCounts[rating]++;
     });
-
-    const starPercentages = {};
-    for (let key in starCounts) {
-        starPercentages[key] = (starCounts[key] / totalReviews) * 100;
-    }
-
-    console.log(starPercentages)
-
     return (
         <div className="flex flex-col gap-2 py-4">
-            <div className="flex items-center">
-                <div className="w-20 text-sm">Best</div>
-                <div className="flex h-3 w-full bg-gray-200">
-                    <div className={`flex w-[${starPercentages[5]}%] px-10 bg-green-800`} value={starCounts[5]}>&nbsp;</div>
-                </div>
-            </div>
-
-            <div className="flex items-center">
-                <div className="w-20 text-sm">Good</div>
-                <div className="flex h-3 w-full bg-gray-200">
-                    <div className={`flex w-[${starPercentages[4]}%] px-10 bg-lime-800`} value={starCounts[4]}>&nbsp;</div>
-                </div>
-            </div>
-
-            <div className="flex items-center">
-                <div className="w-20 text-sm">Average</div>
-                <div className="flex h-3 w-full bg-gray-200">
-                    <div className={`flex w-[${starPercentages[3]}%] px-10 bg-yellow-800`} value={starCounts[3]}>&nbsp;</div>
-                </div>
-            </div>
-
-            <div className="flex items-center">
-                <div className="w-20 text-sm">Poor</div>
-                <div className="flex h-3 w-full bg-gray-200">
-                    <div className={`flex w-[${starPercentages[2]}%] px-10 bg-orange-800`} value={starCounts[2]}>&nbsp;</div>
-                </div>
-            </div>
-
-            <div className="flex items-center">
-                <div className="w-20 text-sm">Worst</div>
-                <div className="flex h-3 w-full bg-gray-200">
-                    <div className={`flex w-[${starPercentages[1]}%] px-10 bg-red-800`} value={starCounts[1]}>&nbsp;</div>
-                </div>
-            </div>
-
+            <Bar reviews={starCounts[5]} totalReviews={totalReviews} label="Best" color="green"/>
+            <Bar reviews={starCounts[4]} totalReviews={totalReviews} label="Good" color="lime"/>
+            <Bar reviews={starCounts[3]} totalReviews={totalReviews} label="Average" color="yellow"/>
+            <Bar reviews={starCounts[2]} totalReviews={totalReviews} label="Poor" color="orange"/>
+            <Bar reviews={starCounts[1]} totalReviews={totalReviews} label="Worst" color="red"/>
         </div>
     )
 };
 
 const Comment = ({ name, rating, comment }) => {
     return (
-        <div className="comment bg-gray-200 p-4 border-l-4 border-pink-800">
-            <h4 className="font-bold text-sm text-purple-500">{name}</h4>
-            <p>Rating: {rating}</p>
+        <div className="flex flex-col gap-3 bg-pink-100 p-4 border-l-4 border-pink-800">
+            <div className="flex justify-between">
+                <h4 className="font-bold text-sm text-indigo-700">{name}</h4>
+                <RatingStars averageRating={rating} size="12px" />
+            </div>
             <p className="text-sm">{comment}</p>
+            <p className="text-[0.6rem] text-neutral-500">03/10/2018</p>
         </div>
     );
 };
 
 const CommentList = ({ comments }) => {
     return (
-        <div className="comment-section">
-            <div className="comments flex flex-col gap-4">
-                {comments.map((comment, index) => (
-                    <Comment
-                        key={index}
-                        name={comment.name}
-                        rating={comment.rating}
-                        comment={comment.comment}
-                    />
-                ))}
-            </div>
+        <div className="flex flex-col gap-4">
+            {comments.map((comment, index) => (
+                <Comment
+                    key={index}
+                    name={comment.name}
+                    rating={comment.rating}
+                    comment={comment.comment}
+                />
+            ))}
         </div>
     );
 };
@@ -494,22 +478,21 @@ const CommentList = ({ comments }) => {
 const Reviews = () => {
     return (
         <div>
-            <div className="flex text-ut-gray">
-                <div className="w-1/3 px-12 py-6 flex flex-col gap-3">
-                    <h2 className="font-bold text-ut-gray text-xl">REVIEWS</h2>
+            <div className="flex flex-col md:flex-row">
+                <div className="w-full md:w-1/3 flex flex-col gap-3 px-12 py-6">
+                    <h2 className="font-bold text-xl">REVIEWS</h2>
                     <div className="flex justify-between items-center">
                         <h1 className="font-bold text-5xl">{data['average_rating']}</h1>
-                        <RatingStars averageRating={data['average_rating']} />
+                        <RatingStars averageRating={data['average_rating']} size="32px" />
                     </div>
                     <div>
-
                         {data['total_reviews']} REVIEWS
                         <DistributionChart reviews={data['reviews']} />
                     </div>
                 </div>
-                <div className="w-2/3 px-12 py-6 flex flex-col gap-3">
-                    <h2 className="font-bold text-ut-gray text-xl">COMMENTS</h2>
-                    <div className="max-h-96 overflow-y-scroll bg-gray-100 p-2">
+                <div className="w-full md:w-2/3 flex flex-col gap-3 px-12 py-6">
+                    <h2 className="font-bold text-xl">COMMENTS</h2>
+                    <div className="max-h-96 overflow-y-scroll p-2">
                         <CommentList comments={data['reviews']} />
                     </div>
                 </div>
@@ -519,26 +502,22 @@ const Reviews = () => {
 }
 
 const Body = () => {
-    // let { productUUID } = useParams();
-
+    const mainCategory = "Men";
+    const subCategory = "Suits"
     return (
-        <div className="flex flex-col px-8 py-12 font-lexend">
-            <Overview productUUID={776} />
-            <br />
+        <div className="flex flex-col gap-24 px-8 py-12 text-ut-gray font-lexend">
+            <Overview mainCategory={mainCategory} subCategory={subCategory} />
             <Legal />
-            <br />
             <Reviews />
         </div>
     )
 };
 
 function ProductOverview() {
-    // let { productUUID } = useParams();
-
     return (
         <div>
             <Navbar />
-            <Body productUUID={889} />
+            <Body />
             <Footer />
         </div>
     );
