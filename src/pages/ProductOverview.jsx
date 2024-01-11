@@ -449,7 +449,7 @@ const DistributionChart = ({ reviews }) => {
 
 const Comment = ({ name, rating, comment }) => {
     return (
-        <div className="flex flex-col gap-3 bg-pink-100 p-4 border-l-4 border-pink-800">
+        <div className="flex flex-col gap-3 bg-gray-100 p-4 border-l-4 border-pink-800">
             <div className="flex justify-between">
                 <h4 className="font-bold text-sm text-indigo-700">{name}</h4>
                 <RatingStars averageRating={rating} size="12px" />
