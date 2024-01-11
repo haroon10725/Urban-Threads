@@ -36,42 +36,56 @@ export function uncheckAll() {
 //     alert("hi")
 // }
 
+var minprice;
+var maxprice;
+
 export function Checkfilters() {
     if (isNaN(Number(min[0].value))) {
         alert("Please enter a number in the min field")
     } else {
-        let minprice = min[0].value
+        minprice = min[0].value
     }
 
     if (isNaN(Number(max[0].value))) {
         alert("Please enter a number in the min field")
     } else {
-        let maxprice = max[0].value
+        maxprice = max[0].value
     }
-
-
 }
 
 
+const postData = {
+    "min-value": minprice,
+    "max-value": maxprice,
+};
 
 
 
+fetch("http://localhost:3000/api/data", {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(postData)
+}).then(response => response.json())
+    .then(data => console.log(data))
+    .catch(error => console.error('Error:', error));
 
 // function to handle data
-function processData(data) {
-    const docs = data.documents
-    docs.forEach(doc => {
-        
-    })
-}
+// function processData(data) {
+//     const docs = data.documents
+//     docs.forEach(doc => {
+
+//     })
+// }
 
 // Caling api to fetch data
-fetch('http://localhost:3000/data/product/fetch')
-    .then(response => response.json())
-    .then(name => {
-        processData(name)
-    })
-    .catch(error => console.error('Error:', error));
+// fetch('http://localhost:3000/data/product/fetch')
+//     .then(response => response.json())
+//     .then(name => {
+//         processData(name)
+//     })
+//     .catch(error => console.error('Error:', error));
 
 
 
