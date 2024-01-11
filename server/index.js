@@ -44,8 +44,9 @@ app.get('/data/product/fetch', async (_req, res, _next) => {
   const data = {
     dataSource: 'Cluster0',
     database: 'UrbanThreadsDB',
-    collection: 'Products'
-  };
+    collection: 'Products',
+    filter: { name: { $in: ['men', 'boys'] } }
+  }
 
   const headers = {
     'Content-Type': 'application/json',
