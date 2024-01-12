@@ -79,40 +79,45 @@ function Payment({ match }) {
                         </div>
                         <button type="submit" className='px-4 py-2 w-full bg-pink-600 hover:bg-pink-700 active:bg-pink-800 text-white'>Complete Purchase</button>
                     </form>
-                    <div className="flex flex-col w-full lg:w-1/3 bg-blue-100">
-                        <div>
-                            <h1>Your Order Summary</h1>
+                    <div className="flex flex-col w-full lg:w-1/3 bg-stone-100 px-16 py-12 justify-between">
+                        <div className="text-center">
+                            <h1 className="font-bold text-neutral-700 text-2xl">YOUR ORDER SUMMARY</h1>
                         </div>
-                        <div>
-
-                            <div>
-                                <div>
+                        <table className="bg-white text-sm text-neutral-700">
+                            <tr className="border-2 border-pink-800">
+                                <td className="p-3 flex justify-between">
                                     <span>Subtotal</span> <span>PKR 400</span>
-                                </div>
-                                <div>
+                                </td>
+                            </tr>
+                            <tr className="border-2 border-pink-800">
+                                <td className="p-3 flex justify-between">
                                     <span>Discount</span> <span>PKR 40</span>
-                                </div>
+                                </td>
+                            </tr>
+                            <tr className="bg-gray-200 text-indigo-800 border-2 border-pink-800 font-bold">
+                                <td className="p-3 flex justify-between">
+                                    <span>Total</span> <span>PKR 360</span>
+                                </td>
+                            </tr>
+                        </table>
+                        <div className="flex flex-col gap-8 text-[0.65rem] text-neutral-700 text-justify">
+                            <div>
+                                <ol className="flex flex-col gap-1">
+                                    <li><strong>Free Shipment:</strong> Enjoy complimentary shipping on all orders.</li>
+                                    <li><strong>Return Policy:</strong> Returns accepted within 36 days of delivery. Items must be unused and in original packaging.</li>
+                                    <li><strong>Exchange Policy:</strong> Exchange eligible items within 36 days. Product must be unused and in its original condition.</li>
+                                    <li><strong>Mediation Role:</strong> In cases where a return/exchange request is denied by any brand, we hold no liability for the decision made by the company.</li>
+                                </ol>
                             </div>
                             <div>
-                                <span>Total</span> <span>PKR 440</span>
+                                <p><strong>Important Notice:</strong> This checkout is for project demonstration only. No actual payments will be processed; entered information is for dummy use. Personal data is stored securely in MongoDB, but we cannot guarantee absolute security. By proceeding, you agree that this platform is not for real transactions. We assume no liability for inaccuracies, interruptions, or any inconvenience caused. Your use of this platform signifies understanding and acceptance of these terms.</p>
                             </div>
-                        </div>
-                        <div>
-                            <ul>
-                                <li><strong>Free Shipment:</strong> Enjoy complimentary shipping on all orders.</li>
-                                <li><strong>Return Policy:</strong> Returns accepted within 36 days of delivery. Items must be unused and in original packaging.</li>
-                                <li><strong>Exchange Policy:</strong> Exchange eligible items within 36 days. Product must be unused and in its original condition.</li>
-                                <li><strong>Mediation Role:</strong> In cases where a return/exchange request is denied by any brand, we hold no liability for the decision made by the company.</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <p><strong>Important Notice:</strong> This checkout is for project demonstration only. No actual payments will be processed; entered information is for dummy use. Personal data is stored securely in MongoDB, but we cannot guarantee absolute security. By proceeding, you agree that this platform is not for real transactions. We assume no liability for inaccuracies, interruptions, or any inconvenience caused. Your use of this platform signifies understanding and acceptance of these terms.</p>
                         </div>
                     </div>
                 </div>
-            </div>
+            </div >
             <Footer />
-        </div>
+        </div >
     );
 }
 
