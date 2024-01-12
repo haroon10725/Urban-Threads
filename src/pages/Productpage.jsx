@@ -15,7 +15,6 @@ import color from "../assets/color.png"
 import size from "../assets/size.png"
 import starpic from "../assets/star.png"
 import search from "../assets/search.png"
-import outlined from "@material-tailwind/react/theme/components/timeline/timelineIconColors/outlined.js"
 
 // Importing function
 import { DisplayFilter } from "../components/Filterpanel/filter.js"
