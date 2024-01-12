@@ -1,12 +1,14 @@
 // importing external functions
-import { Clicked } from "./filter.js"
+import { Clicked, DisplayCateg } from "./filter.js"
 import { CloseFilter } from "./filter.js"
 import { uncheckAll } from "./filter.js"
 import { Checkfilters } from "./filter.js"
-
 // importing external files
 import "./filter.css"
 import "./filter.js"
+
+var BoysCateg = document.getElementsByClassName('boys-categories')
+var ManCateg = document.getElementsByClassName('man-categories')
 
 import down from "../../assets/down.png"
 
@@ -15,7 +17,7 @@ export default function Filter({ type, values, icon }) {
     return (
         <div>
             <div className="flex filter-panel absolute justify-center transition ease-in-out delay-150 duration-500 opacity-0">
-                <div className="w-5/6 h-[36rem] border border-gray-300 bg-white z-50 p-2">
+                <div className="w-5/6 border border-gray-300 bg-white z-50 p-2">
                     <div className="flex justify-between m-2">
                         <div className="FilterBy">
                             <p className="a1 text-3xl font-medium">Filter By</p>
@@ -26,7 +28,7 @@ export default function Filter({ type, values, icon }) {
                     </div>
                     <p className="a3 tracking-wide ml-2">Category</p>
                     <div className="categ-list flex flex-col ml-2 my-4 rounded-lg border-gray-400 border">
-                        <div className="flex items-center justify-between h-[2.5rem] px-2 h-full w-[96%]">
+                        <div className="flex items-center justify-between h-[2.5rem] px-2 w-[96%]">
                             <p className="a2 text-sm text-gray-600 font-extralight">Select Categories</p>
                             <div className="c1 w-5 h-5 cursor-pointer items-center flex h-full" onClick={Clicked}>
                                 <img src={down} alt="" />
@@ -34,11 +36,11 @@ export default function Filter({ type, values, icon }) {
                         </div>
                         <div className="hidden categ">
                             <form className="mt-1 ml-2" action="">
-                                <input className="p-3 h-5 w-5 border border-gray-400 mr-3 my-1 rounded-md" type="checkbox" />
+                                <input className="man p-3 h-5 w-5 border border-gray-400 mr-3 my-1 rounded-md" type="checkbox" onClick={() => { DisplayCateg(ManCateg) }} />
                                 <label className="a1" htmlFor="">Men</label>
 
                                 <br />
-                                <input className="p-3 h-5 w-5 border border-gray-400 mr-3 my-1 rounded-md" type="checkbox" />
+                                <input className="boys p-3 h-5 w-5 border border-gray-400 mr-3 my-1 rounded-md" type="checkbox" onClick={() => { DisplayCateg(BoysCateg) }} />
                                 <label className="a1" htmlFor="">Boys</label>
 
                             </form>
@@ -60,6 +62,79 @@ export default function Filter({ type, values, icon }) {
 
                         </form>
                     </div>
+                    <div className="hidden boys-categories mx-2 my-5">
+                        <div className="category">
+                            <p className="a3 text-gray-900">Items</p>
+                        </div>
+                        <form className="mt-1" action="">
+                            <input className="p-3 h-5 w-5 border border-gray-400 mr-3 my-1  rounded-md" type="checkbox" />
+                            <label className="a1" htmlFor="">Denim Jeans</label>
+
+                            <br />
+                            <input className="p-3 h-5 w-5 border border-gray-400 mr-3 my-1 rounded-md" type="checkbox" />
+                            <label className="a1" htmlFor="">Jackets</label>
+                            <br />
+                            <input className="p-3 h-5 w-5 border border-gray-400 mr-3 my-1 rounded-md" type="checkbox" />
+                            <label className="a1" htmlFor="">Sweat Shirts</label>
+                            <br />
+                            <input className="p-3 h-5 w-5 border border-gray-400 mr-3 my-1 rounded-md" type="checkbox" />
+                            <label className="a1" htmlFor="">Polo Shirts</label>
+                            <br />
+                            <input className="p-3 h-5 w-5 border border-gray-400 mr-3 my-1 rounded-md" type="checkbox" />
+                            <label className="a1" htmlFor="">Basic Tees</label>
+                            <br />
+                            <input className="p-3 h-5 w-5 border border-gray-400 mr-3 my-1 rounded-md" type="checkbox" />
+                            <label className="a1" htmlFor="">Shalwar Suits</label>
+                            <br />
+                            <input className="p-3 h-5 w-5 border border-gray-400 mr-3 my-1 rounded-md" type="checkbox" />
+                            <label className="a1" htmlFor="">Hoodies</label>
+                            <br />
+                            <input className="p-3 h-5 w-5 border border-gray-400 mr-3 my-1 rounded-md" type="checkbox" />
+                            <label className="a1" htmlFor="">Coat Pants</label>
+                            <br />
+                            <input className="p-3 h-5 w-5 border border-gray-400 mr-3 my-1 rounded-md" type="checkbox" />
+                            <label className="a1" htmlFor="">Trousers</label>
+
+
+                        </form>
+                    </div>
+                    <div className="man-categories mx-2 my-5">
+                        <div className="category">
+                            <p className="a3 text-gray-900">Items</p>
+                        </div>
+                        <form className="mt-1" action="">
+                            <input className="p-3 h-5 w-5 border border-gray-400 mr-3 my-1  rounded-md" type="checkbox" />
+                            <label className="a1" htmlFor="">Kurtas</label>
+
+                            <br />
+                            <input className="p-3 h-5 w-5 border border-gray-400 mr-3 my-1 rounded-md" type="checkbox" />
+                            <label className="a1" htmlFor="">Jackets</label>
+                            <br />
+                            <input className="p-3 h-5 w-5 border border-gray-400 mr-3 my-1 rounded-md" type="checkbox" />
+                            <label className="a1" htmlFor="">Waist Coats</label>
+                            <br />
+                            <input className="p-3 h-5 w-5 border border-gray-400 mr-3 my-1 rounded-md" type="checkbox" />
+                            <label className="a1" htmlFor="">Polo Shirts</label>
+                            <br />
+                            <input className="p-3 h-5 w-5 border border-gray-400 mr-3 my-1 rounded-md" type="checkbox" />
+                            <label className="a1" htmlFor="">Shalwar Suits</label>
+                            <br />
+                            <input className="p-3 h-5 w-5 border border-gray-400 mr-3 my-1 rounded-md" type="checkbox" />
+                            <label className="a1" htmlFor="">Coats Blazers</label>
+                            <br />
+                            <input className="p-3 h-5 w-5 border border-gray-400 mr-3 my-1 rounded-md" type="checkbox" />
+                            <label className="a1" htmlFor="">Formal Pants</label>
+                            <br />
+                            <input className="p-3 h-5 w-5 border border-gray-400 mr-3 my-1 rounded-md" type="checkbox" />
+                            <label className="a1" htmlFor="">Graphic Tees</label>
+                            <br />
+                            <input className="p-3 h-5 w-5 border border-gray-400 mr-3 my-1 rounded-md" type="checkbox" />
+                            <label className="a1" htmlFor="">Shirts</label>
+
+
+                        </form>
+                    </div>
+
                     <div className="size mx-2 my-5">
                         <div className="pricetag">
                             <p className="a3 text-gray-900">Size</p>
@@ -85,8 +160,8 @@ export default function Filter({ type, values, icon }) {
                         </form>
                     </div>
 
-                    <div className="price mx-2 my-5">
-                        <div className="pricetag">
+                    <div className="rating mx-2 my-5">
+                        <div className="ratetag">
                             <p className="a3 text-gray-900">Rating <span className="a3 text-gray-400 text-xs">(avg)</span></p>
                         </div>
                         <form className="mt-3 flex" action="">

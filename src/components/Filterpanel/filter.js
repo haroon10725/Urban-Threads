@@ -1,10 +1,16 @@
-// var a1 = document.getElementsByClassName('c1');
+var a1 = document.getElementsByClassName('c1');
 var a2 = document.getElementsByClassName('filter-panel');
 var a3 = document.getElementsByClassName('categ-list');
 var a4 = document.getElementsByClassName('categ');
 var min = document.getElementsByClassName('min')
 var max = document.getElementsByClassName('max')
+var man = document.getElementsByClassName('man')
+var boy = document.getElementsByClassName('boys')
 
+
+export function DisplayCateg(item) {
+    item[0].classList.toggle('hidden')
+}
 export function Clicked() {
     a1[0].classList.toggle('rotate-180')
     a3[0].classList.toggle('h-[7rem]')
@@ -15,6 +21,8 @@ export function Clicked() {
 export function DisplayFilter() {
     a2[0].classList.replace('opacity-0', 'opacity-100')
 
+    // Men will be the default products so checkbox will remain checked
+    man[0].checked = true
 }
 
 export function CloseFilter() {
@@ -32,9 +40,6 @@ export function uncheckAll() {
     });
 }
 
-// if (min.value=="Safee"){
-//     alert("hi")
-// }
 
 var minprice;
 var maxprice;
@@ -60,32 +65,23 @@ const postData = {
 };
 
 
-
-fetch("http://localhost:3000/api/data", {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(postData)
-}).then(response => response.json())
-    .then(data => console.log(data))
-    .catch(error => console.error('Error:', error));
-
 // function to handle data
-// function processData(data) {
-//     const docs = data.documents
-//     docs.forEach(doc => {
-
-//     })
-// }
+function processData(data) {
+    const docs = data.documents
+    docs.forEach(doc => {
+        doc.forEach(subCat => {
+            console.log(subCat)
+        })
+    })
+}
 
 // Caling api to fetch data
-// fetch('http://localhost:3000/data/product/fetch')
-//     .then(response => response.json())
-//     .then(name => {
-//         processData(name)
-//     })
-//     .catch(error => console.error('Error:', error));
+fetch('http://localhost:3000/data/product/fetch')
+    .then(response => response.json())
+    .then(name => {
+        processData(name)
+    })
+    .catch(error => console.error('Error:', error));
 
 
 
