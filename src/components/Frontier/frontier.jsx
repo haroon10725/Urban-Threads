@@ -16,7 +16,7 @@ export default function Frontier() {
                     </div>
                 </div>
                 <img className="sm:hidden" src={pic2} alt="mainpic1" />
-                <img className="hidden sm:block" src={pic1} alt="mainpic2" />
+                <img className="hidden w-full h-auto sm:block" src={pic1} alt="mainpic2" />
             </div>
         </div>
     )

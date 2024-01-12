@@ -4,4 +4,6 @@ export default function Clicked(x) {
     a1[x].classList.toggle('rotate-180');
     a2[x].classList.toggle('hidden')
 
+
 }
+
