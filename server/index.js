@@ -6,7 +6,10 @@ const bodyParser = require('body-parser')
 
 
 app.use(express.static('build'));
-var urlencodedParser = bodyParser.urlencoded({ extended: false })
+
+const API_KEY = 'ZOlIbr32F9Z8KGoIeMIBcqSiLUuRVJQnuZrUF91R97398K4IRrfIa9uIedM6d7PJ';
+const BASE_URL = 'https://ap-southeast-1.aws.data.mongodb-api.com/app/data-zwsiz/endpoint/data/v1/action';
+
 // For Product Overview Page
 app.get('/data/overview/fetch', async (_req, res, _next) => {
   const apiKey = 'ZOlIbr32F9Z8KGoIeMIBcqSiLUuRVJQnuZrUF91R97398K4IRrfIa9uIedM6d7PJ';
@@ -29,7 +32,8 @@ app.get('/data/overview/fetch', async (_req, res, _next) => {
     headers: headers,
     body: JSON.stringify(data)
   }).then(async response => {
-    res.send(await response.json());
+    const data = await response.json();
+    res.send(data);
   }).then(async result => {
     console.log('API Response:', result);
   }).catch(async error => {
