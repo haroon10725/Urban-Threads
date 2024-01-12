@@ -1,7 +1,7 @@
 import Navbar from "../components/Navbar/navbar.jsx"
 import Footer from "../components/Footer/footer.jsx"
 import Product from "../components/Product/product"
-import Refiner from "../components/Refiner/refiner.jsx"
+import Filter from "../components/Filterpanel/filter.jsx"
 import { Productpanel, FakePanel } from "../components/productpanel/productpanel.jsx"
 
 // importing all pics
@@ -14,19 +14,35 @@ import filter from "../assets/filter.png"
 import color from "../assets/color.png"
 import size from "../assets/size.png"
 import starpic from "../assets/star.png"
+import search from "../assets/search.png"
+import outlined from "@material-tailwind/react/theme/components/timeline/timelineIconColors/outlined.js"
+
+// Importing function
+import { DisplayFilter } from "../components/Filterpanel/filter.js"
+
+// importing for time being
+import "../App.css"
+
 
 export default function ProductPage() {
     return (
         <div className="page">
             <Navbar />
             <div className="overflow-x-scroll mt-[1rem] h-[3rem] lg:hidden " style={{ scrollbarWidth: "none" }}>
-                <div className="flex justify-evenly w-[35rem]">
-
-                    <Refiner icon={sort} type={"Sort"} />
-                    <Refiner icon={filter} type={"Filter"} />
-                    <Refiner icon={size} type={"Size"} />
-                    <Refiner icon={color} type={"Color"} />
+                <div className="flex justify-center w-full">
+                    <form className="w-3/4 flex rounded-full border items-center border-gray-300" action="">
+                        <div className="seach w-5 h-5 ml-3">
+                            <img src={search} alt="icon" />
+                        </div>
+                        <input className="px-3 py-2 w-5/6 rounded-full" type="text" name="searchbar" placeholder="Search" />
+                        <div className="filter w-6 h-6 rounded-full mr-4 cursor-pointer">
+                            <img id="filter" src={filter} onClick={DisplayFilter} alt="" />
+                        </div>
+                    </form>
                 </div>
+            </div>
+            <div className="mt-5">
+                <Filter />
             </div>
             <div className="flex flex-col items-center mt-[1rem]">
                 <Category header={"Pants"} />
