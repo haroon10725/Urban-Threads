@@ -30,7 +30,7 @@ export default function App() {
                 <Route path="cookie" element={<Cookies />} />
                 <Route path="products" element={<Product />} />
                 <Route path="payment" element={<Payment />} />
-                <Route path="products/:main_category/:sub_category/:productUUID" element={<ProductOverview />} />
+                <Route path="products/:category/:subCategory/:productUUID" element={<ProductOverview />} />
                 <Route path="*" element={<Error404 />} />
             </Routes>
         </BrowserRouter >

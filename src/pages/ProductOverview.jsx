@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import Navbar from '../components/Navbar/navbar.jsx';
 import Footer from '../components/Footer/footer.jsx';
@@ -6,6 +6,7 @@ import Footer from '../components/Footer/footer.jsx';
 import Slider from 'react-slick';
 import { FaStar, FaStarHalfAlt, FaRegStar } from 'react-icons/fa';
 import { IconContext } from 'react-icons';
+import { useParams } from 'react-router-dom';
 
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -154,7 +155,7 @@ const Carousel = ({ images }) => {
 };
 
 const Star = (props) => {
-    const { color="#eab308", size="24px" } = props;
+    const { color = "#eab308", size = "24px" } = props;
     return (
         <IconContext.Provider value={{ color: color, size: size }}>
             <FaStar />
@@ -163,7 +164,7 @@ const Star = (props) => {
 }
 
 const StarHalfAlt = (props) => {
-    const { color="#eab308", size="24px" } = props;
+    const { color = "#eab308", size = "24px" } = props;
     return (
         <IconContext.Provider value={{ color: color, size: size }}>
             <FaStarHalfAlt />
@@ -172,7 +173,7 @@ const StarHalfAlt = (props) => {
 }
 
 const RegStar = (props) => {
-    const { color="#eab308", size="24px" } = props;
+    const { color = "#eab308", size = "24px" } = props;
     return (
         <IconContext.Provider value={{ color: color, size: size }}>
             <FaRegStar />
@@ -181,7 +182,7 @@ const RegStar = (props) => {
 }
 
 const RatingStars = (props) => {
-    const { averageRating, color, size} = props;
+    const { averageRating, color, size } = props;
 
     const totalStars = 5;
     const fullStars = Math.floor(averageRating);
@@ -244,7 +245,8 @@ const ColorSelector = ({ colors }) => {
     return (
         <div className="flex flex-col gap-3">
             <h2 className="font-bold">COLOR</h2>
-            <div className="flex space-x-2">
+            <p className="text-xs text-red-400">Customizations not available.</p>
+            {/* <div className="flex space-x-2">
                 {colors.map((color, index) => (
                     <button
                         key={index}
@@ -252,7 +254,7 @@ const ColorSelector = ({ colors }) => {
                         onClick={() => handleColorChange(color)}
                     >{color}</button>
                 ))}
-            </div>
+            </div> */}
         </div>
     );
 };
@@ -281,7 +283,7 @@ const SizeSelector = ({ sizes }) => {
                         />
                         <button
                             type="button"
-                            className={`border-2 text-sm p-1 w-9 h-9 ${selectedSize === size ? 'bg-purple-50 border-purple-500 text-purple-500 font-bold' : 'border-neutral-400 bg-neutral-100 text-neutral-800'}`}
+                            className={`border-2 text-sm p-1 w-12 h-9 ${selectedSize === size ? 'bg-purple-50 border-purple-500 text-purple-500 font-bold' : 'border-neutral-400 bg-neutral-100 text-neutral-800'}`}
                             onClick={() => setSelectedSize(size)}
                         >
                             {size}
@@ -319,7 +321,11 @@ const QuantitySelector = () => {
     );
 };
 
-const Overview = ({ mainCategory, subCategory }) => {
+const Overview = (
+    { category, subCategory, title, articleNumber,
+        averageRating, totalReviews, realPrice,
+        discountedPrice, discount,
+        uuid, sku, sizes }) => {
     return (
         <div className="text-ut-gray gap-2 md:gap-4">
             <div className="flex flex-col lg:flex-row">
@@ -332,34 +338,34 @@ const Overview = ({ mainCategory, subCategory }) => {
                 </div>
                 <div className="flex-1 flex flex-col py-16 px-12 gap-5">
                     <div id="headings" className="flex flex-col gap-2 font-bold">
-                        <h2 className="text-sm text-teal-700">{mainCategory} | {subCategory}</h2>
-                        <h1 className="text-2xl">{data['title']}</h1>
-                        <h3 className="text-xs text-neutral-800">{data['article_number']}</h3>
+                        <h2 className="text-sm text-teal-700">{category} | {subCategory}</h2>
+                        <h1 className="text-2xl">{title}</h1>
+                        <h3 className="text-xs text-neutral-800">{articleNumber}</h3>
                     </div>
                     <div id="ratings" className="flex gap-6 font-bold">
                         <span>
-                            <RatingStars averageRating={data['average_rating']} />
+                            <RatingStars averageRating={averageRating} />
                         </span>
                         <span>
-                            {data['average_rating']} | {data['total_reviews']} REVIEWS
+                            {averageRating} | {totalReviews} REVIEWS
                         </span>
                     </div>
                     <div id="price">
-                        <Pricing realPrice={data['real_price']} discountedPrice={data['discounted_price']} discount={data['discount_pc']} />
+                        <Pricing realPrice={realPrice} discountedPrice={discountedPrice} discount={discount} />
                     </div>
                     <div id="metaInfo" className="text-neutral-600 text-xs">
                         <p>
-                            <b>UUID:</b> {data['unique_identifier']}
+                            <b>UUID:</b> {uuid}
                         </p>
                         <p>
-                            <b>SKU:</b> {data['stock_keeping_unit']}
+                            <b>SKU:</b> {sku}
                         </p>
                     </div>
                     <div id="color">
-                        <ColorSelector colors={data['colors']} />
+                        <ColorSelector colors={[]} />
                     </div>
                     <div id="size">
-                        <SizeSelector sizes={data['available_sizes']} />
+                        <SizeSelector sizes={sizes} />
                     </div>
                     <div id="quantity">
                         <QuantitySelector />
@@ -438,11 +444,11 @@ const DistributionChart = ({ reviews }) => {
     });
     return (
         <div className="flex flex-col gap-2 py-4">
-            <Bar reviews={starCounts[5]} totalReviews={totalReviews} label="Best" color="green"/>
-            <Bar reviews={starCounts[4]} totalReviews={totalReviews} label="Good" color="lime"/>
-            <Bar reviews={starCounts[3]} totalReviews={totalReviews} label="Average" color="yellow"/>
-            <Bar reviews={starCounts[2]} totalReviews={totalReviews} label="Poor" color="orange"/>
-            <Bar reviews={starCounts[1]} totalReviews={totalReviews} label="Worst" color="red"/>
+            <Bar reviews={starCounts[5]} totalReviews={totalReviews} label="Best" color="green" />
+            <Bar reviews={starCounts[4]} totalReviews={totalReviews} label="Good" color="lime" />
+            <Bar reviews={starCounts[3]} totalReviews={totalReviews} label="Average" color="yellow" />
+            <Bar reviews={starCounts[2]} totalReviews={totalReviews} label="Poor" color="orange" />
+            <Bar reviews={starCounts[1]} totalReviews={totalReviews} label="Worst" color="red" />
         </div>
     )
 };
@@ -501,12 +507,32 @@ const Reviews = () => {
     );
 }
 
-const Body = () => {
-    const mainCategory = "Men";
-    const subCategory = "Suits"
+const Body = ({ data }) => {
+    var { id_, category, sub_category,
+        title, article_number, average_rating, total_reviews,
+        real_price, discounted_price, discount_pc,
+        unique_identifier, stock_keeping_unit, available_sizes } = data;
+
+    category = category.replace('_', ' ').toUpperCase();
+    sub_category = sub_category.replace('_', ' ').toUpperCase();
+    title = title.replace('\'S', '\'s')
+
     return (
         <div className="flex flex-col gap-24 px-8 py-12 text-ut-gray font-lexend">
-            <Overview mainCategory={mainCategory} subCategory={subCategory} />
+            <Overview
+                category={category}
+                subCategory={sub_category}
+                title={title}
+                articleNumber={article_number}
+                averageRating={average_rating}
+                totalReviews={total_reviews}
+                realPrice={real_price}
+                discountedPrice={discounted_price}
+                discount={discount_pc}
+                uuid={unique_identifier}
+                sku={stock_keeping_unit}
+                sizes={available_sizes}
+            />
             <Legal />
             <Reviews />
         </div>
@@ -514,10 +540,32 @@ const Body = () => {
 };
 
 function ProductOverview() {
+    const { category, subCategory, productUUID } = useParams();
+
+    const [productDetails, setProductDetails] = useState(null);
+
+    useEffect(() => {
+        const fetchProductDetails = async () => {
+            try {
+                const response = await fetch(`http://localhost:3000/api/products/${category}/${subCategory}/${productUUID}`);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                const data = await response.json();
+                setProductDetails(data['documents'][0]);
+            } catch (error) {
+                console.error('Error fetching product details:', error.message);
+            }
+        };
+        fetchProductDetails();
+    }, []);
+
     return (
         <div>
             <Navbar />
-            <Body />
+            {productDetails && (
+                <Body data={productDetails} />
+            )}
             <Footer />
         </div>
     );
