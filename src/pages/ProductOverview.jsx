@@ -10,126 +10,8 @@ import { useParams } from 'react-router-dom';
 
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-
-const data = {
-    "title": "Men'S Dark Navy Blazer",
-    "article_number": "EMTB22W",
-    "variation_code": "6771",
-    "unique_identifier": "EMTB22W-6771",
-    "stock_keeping_unit": "231518",
-    "short_description": [
-        "Men's Blazer",
-        "Slim Fit",
-        "Cotton Fabric",
-        "Printed Inner Satin",
-        "Fancy Buttons"
-    ],
-    "real_price": 12991.0,
-    "discounted_price": 9743.0,
-    "discount_pc": 25.0,
-    "colors": ["Grey", "Black"],
-    "available_sizes": [
-        "40",
-        "42",
-        "44"
-    ],
-    "images": [
-        "https://edenrobe.com/cdn/shop/products/22_M_MenBlazer_EMTB22-6771_1_70ea60d6-fae4-4065-a634-71044883da49.jpg?v=1701517101",
-        "https://edenrobe.com/cdn/shop/products/22_M_MenBlazer_EMTB22-6771_2_e02172be-7150-41a8-a6cb-fa9331971336.jpg?v=1701517101",
-        "https://edenrobe.com/cdn/shop/products/22_M_MenBlazer_EMTB22-6771_3_8d2fac6d-a8e7-4c08-9143-328a861d51e1.jpg?v=1701517101",
-        "https://edenrobe.com/cdn/shop/products/22_M_MenBlazer_EMTB22-6771_4_24874e26-228f-4fcd-b78d-3ebf241eb82f.jpg?v=1701517101",
-        "https://edenrobe.com/cdn/shop/products/22_M_MenBlazer_EMTB22-6771_5_f43b52d2-9956-4be6-86fa-eb85b1d284a2.jpg?v=1701517101",
-        "https://edenrobe.com/cdn/shop/products/22_M_MenBlazer_EMTB22-6771_6.jpg?v=1701517101"
-    ],
-    "total_reviews": 12,
-    "average_rating": 3.8,
-    "reviews": [
-        {
-            "rating": 2,
-            "name": "Jared Clark",
-            "gender": "male",
-            "nationality": "NL",
-            "comment": "Acceptable fabric, but the fit was awkward. Customer service was somewhat responsive."
-        },
-        {
-            "rating": 3,
-            "name": "Mike Castro",
-            "gender": "male",
-            "nationality": "NL",
-            "comment": "The fabric was alright, but the item seemed slightly less durable. Customer service was responsive."
-        },
-        {
-            "rating": 1,
-            "name": "Erik Gonzalez",
-            "gender": "male",
-            "nationality": "GB",
-            "comment": "Received an item with uneven seams and an odd, lingering odor. Fabric quality was substandard\u2014thin and prone to tearing. Customer support's apathy was disheartening."
-        },
-        {
-            "rating": 5,
-            "name": "Ricky Rodriquez",
-            "gender": "male",
-            "nationality": "NL",
-            "comment": "The fabric felt heavenly against the skin. The quality and feel were exceptional. The fit was impeccable, earning its place as an instant favorite. Definitely recommend!"
-        },
-        {
-            "rating": 4,
-            "name": "Derek Chapman",
-            "gender": "male",
-            "nationality": "MX",
-            "comment": "Presented this attire as a gift and it was adored. The fabric's softness was lauded despite a snug fit. The durability and style won hearts."
-        },
-        {
-            "rating": 3,
-            "name": "Brent Ruiz",
-            "gender": "male",
-            "nationality": "DK",
-            "comment": "The quality was okay, but the fit wasn't as expected. Delivery was slightly delayed."
-        },
-        {
-            "rating": 1,
-            "name": "Morris Lambert",
-            "gender": "male",
-            "nationality": "ES",
-            "comment": "Fabric quality was incredibly disappointing, resembling a flimsy costume. Sizes were far from accurate, rendering the fit impossible. Customer support was frustratingly unyielding."
-        },
-        {
-            "rating": 2,
-            "name": "David Harper",
-            "gender": "male",
-            "nationality": "AU",
-            "comment": "Mediocre fabric, and the sizing was a bit small. Delivery was delayed."
-        },
-        {
-            "rating": 5,
-            "name": "Bernard Jones",
-            "gender": "male",
-            "nationality": "AU",
-            "comment": "The fabric felt heavenly against the skin. The quality and feel were exceptional. The fit was impeccable, earning its place as an instant favorite. Definitely recommend!"
-        },
-        {
-            "rating": 5,
-            "name": "Ben Mason",
-            "gender": "male",
-            "nationality": "AE",
-            "comment": "The comfort from this attire felt personalized. The fabric's quality and texture were exceptional. The fit was flawless, becoming an instant favorite."
-        },
-        {
-            "rating": 3,
-            "name": "Billy Collins",
-            "gender": "male",
-            "nationality": "UA",
-            "comment": "Fabric was acceptable, but the stitching could have been neater. Delivery was within the specified timeframe."
-        },
-        {
-            "rating": 5,
-            "name": "Shane Rice",
-            "gender": "male",
-            "nationality": "AU",
-            "comment": "Wearing this felt like an upscale upgrade. The fabric was chic and seasonally appropriate. The flawless fit and swift delivery made it a standout purchase. Definitely recommend."
-        }
-    ]
-}
+import { useCookies } from "react-cookie";
+import { useCookieContext } from "../cookies/CookiesProvider.jsx";
 
 const Carousel = ({ images }) => {
     const settings = {
@@ -235,12 +117,12 @@ const Pricing = ({ realPrice, discountedPrice, discount }) => {
     );
 }
 
-const ColorSelector = ({ colors }) => {
-    const [selectedColor, setSelectedColor] = useState('');
+const ColorSelector = () => {
+    // const [selectedColor, setSelectedColor] = useState('');
 
-    const handleColorChange = (color) => {
-        setSelectedColor(color);
-    };
+    // const handleColorChange = (color) => {
+    //     setSelectedColor(color);
+    // };
 
     return (
         <div className="flex flex-col gap-3">
@@ -326,6 +208,27 @@ const Overview = (
         averageRating, totalReviews, realPrice,
         discountedPrice, discount,
         uuid, sku, sizes, images }) => {
+
+    const { cookies, updateCookie } = useCookieContext();
+
+    const addItemToCart = () => {
+        console.log(cookies.cart)
+        cookies.cart[uuid] = {
+            quantity: 4,
+            price: discountedPrice
+        }
+        // updateCookie('cart', {"new": "value"})
+        // console.log(cookies.cart)
+        // if (uuid in cookies.cart) {
+        //     cookies.cart[uuid] += 1;
+        // }
+        // else {
+        //     cookies.cart[uuid] = 1;
+        // }
+        // alert(cookies.cart[uuid])
+        // console.log(cookies.cart)
+    }
+
     return (
         <div className="text-ut-gray gap-2 md:gap-4">
             <div className="flex flex-col lg:flex-row">
@@ -374,7 +277,7 @@ const Overview = (
                     <div id="addToCart">
                         <p className="text-[0.7rem] text-neutral-600"><span className="text-green-500">*</span> Please note that the product appearance may vary from what is shown in the pictures.</p>
                         <br />
-                        <button className='px-4 py-2 w-full bg-pink-600 hover:bg-pink-700 active:bg-pink-800 text-white'>Add to Cart</button>
+                        <button className='px-4 py-2 w-full bg-pink-600 hover:bg-pink-700 active:bg-pink-800 text-white' onClick={addItemToCart}>Add to Cart</button>
                     </div>
                 </div>
             </div>
@@ -430,7 +333,7 @@ const Bar = ({ reviews, totalReviews, label, color }) => {
     );
 }
 
-const DistributionChart = ({ reviews }) => {
+const DistributionChart = ({ totalReviews, reviews }) => {
     const starCounts = {
         1: 0,
         2: 0,
@@ -438,7 +341,6 @@ const DistributionChart = ({ reviews }) => {
         4: 0,
         5: 0
     };
-    const totalReviews = data['total_reviews'];
     reviews.forEach(review => {
         const { rating } = review;
         starCounts[rating]++;
@@ -482,7 +384,7 @@ const CommentList = ({ comments }) => {
     );
 };
 
-const Reviews = ({ averageRating, reviews }) => {
+const Reviews = ({ averageRating, totalReviews, reviews }) => {
     return (
         <div>
             <div className="flex flex-col md:flex-row">
@@ -493,8 +395,8 @@ const Reviews = ({ averageRating, reviews }) => {
                         <RatingStars averageRating={averageRating} size="32px" />
                     </div>
                     <div>
-                        {data['total_reviews']} REVIEWS
-                        <DistributionChart reviews={reviews} />
+                        {totalReviews} REVIEWS
+                        <DistributionChart reviews={reviews} totalReviews={totalReviews} />
                     </div>
                 </div>
                 <div className="w-full md:w-2/3 flex flex-col gap-3 px-12 py-6">
@@ -509,6 +411,7 @@ const Reviews = ({ averageRating, reviews }) => {
 }
 
 const Body = ({ data }) => {
+
     var { id_, category, sub_category,
         title, article_number, average_rating, total_reviews,
         real_price, discounted_price, discount_pc,
@@ -536,7 +439,7 @@ const Body = ({ data }) => {
                 images={images}
             />
             <Legal />
-            <Reviews averageRating={average_rating} reviews={reviews} />
+            <Reviews averageRating={average_rating} totalReviews={total_reviews} reviews={reviews} />
         </div>
     )
 };

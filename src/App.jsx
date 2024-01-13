@@ -10,12 +10,13 @@ import OrderPage from "./pages/orderpage/Orderpage";
 import Error from "./pages/errors/404"
 import Error404 from "./pages/errors/404"
 import Cookies from "./AppCookies/cookies"
-
-
-
+import { useCookieContext } from "./cookies/CookiesProvider";
+import { useCookies } from "react-cookie";
 
 
 export default function App() {
+    const [ cookies, setCookie ] = useCookies(['cart']);
+    setCookie('cart', {}, { 'path': '/' })
 
     return (
         <BrowserRouter>

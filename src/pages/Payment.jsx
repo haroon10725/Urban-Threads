@@ -1,8 +1,17 @@
 import Navbar from '../components/Navbar/navbar.jsx';
 import Footer from '../components/Footer/footer.jsx';
+import { useState } from "react";
+
+
 
 
 function Payment({ match }) {
+    const [price, setPrice] = useState(null);
+
+    const makePayment = () => {
+        alert("Purchase completed")
+    }
+
     return (
         <div>
             <Navbar />
@@ -79,9 +88,9 @@ function Payment({ match }) {
                                 </div>
                             </div>
                         </div>
-                        <button type="submit" className='px-4 py-2 w-full bg-pink-600 hover:bg-pink-700 active:bg-pink-800 text-white'>Complete Purchase</button>
-                    </form>
-                    <div className="flex flex-col w-full lg:w-1/3 bg-stone-100 px-16 py-12 justify-between gap-24">
+                        <button type="submit" onClick={makePayment} className='px-4 py-2 w-full bg-pink-600 hover:bg-pink-700 active:bg-pink-800 text-white'>Complete Purchase</button>
+                    </form> 
+                    <div className="flex flex-col w-full lg:w-1/3 bg-yellow-50 border-2 border-amber-500 px-16 py-12 justify-between gap-24">
                         <div className="text-center">
                             <h1 className="font-bold text-neutral-700 text-2xl">YOUR ORDER SUMMARY</h1>
                         </div>
@@ -96,7 +105,7 @@ function Payment({ match }) {
                                     <span>Discount</span> <span>PKR 40</span>
                                 </td>
                             </tr>
-                            <tr className="bg-gray-200 text-indigo-800 border-2 border-pink-800 font-bold">
+                            <tr className="bg-purple-100 text-indigo-800 border-2 border-pink-800 font-bold">
                                 <td className="p-3 flex justify-between">
                                     <span>Total</span> <span>PKR 360</span>
                                 </td>
