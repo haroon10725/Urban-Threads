@@ -325,14 +325,14 @@ const Overview = (
     { category, subCategory, title, articleNumber,
         averageRating, totalReviews, realPrice,
         discountedPrice, discount,
-        uuid, sku, sizes }) => {
+        uuid, sku, sizes, images }) => {
     return (
         <div className="text-ut-gray gap-2 md:gap-4">
             <div className="flex flex-col lg:flex-row">
                 <div className="flex-1 overflow-hidden py-16 px-12">
                     <div className="px-6 md:px-24 lg:px-4 xl:px-8 2xl:px-32">
                         <div>
-                            <Carousel images={data['images']} />
+                            <Carousel images={images} />
                         </div>
                     </div>
                 </div>
@@ -419,11 +419,12 @@ const Legal = () => {
 
 const Bar = ({ reviews, totalReviews, label, color }) => {
     const starPercentage = Math.round((reviews / totalReviews) * 100);
+    var classes = `w-[${starPercentage}%] bg-${color}-600`
     return (
         <div className="flex items-center">
             <div className="w-20 text-sm">{label}</div>
             <div className="flex h-3 w-full bg-neutral-200">
-                <div className={`w-[${starPercentage}%] bg-${color}-600`} value={reviews}>&nbsp;</div>
+                <div className={classes} value={reviews}>&nbsp;</div>
             </div>
         </div>
     );
@@ -481,25 +482,25 @@ const CommentList = ({ comments }) => {
     );
 };
 
-const Reviews = () => {
+const Reviews = ({ averageRating, reviews }) => {
     return (
         <div>
             <div className="flex flex-col md:flex-row">
                 <div className="w-full md:w-1/3 flex flex-col gap-3 px-12 py-6">
                     <h2 className="font-bold text-xl">REVIEWS</h2>
                     <div className="flex justify-between items-center">
-                        <h1 className="font-bold text-5xl">{data['average_rating']}</h1>
-                        <RatingStars averageRating={data['average_rating']} size="32px" />
+                        <h1 className="font-bold text-5xl">{averageRating}</h1>
+                        <RatingStars averageRating={averageRating} size="32px" />
                     </div>
                     <div>
                         {data['total_reviews']} REVIEWS
-                        <DistributionChart reviews={data['reviews']} />
+                        <DistributionChart reviews={reviews} />
                     </div>
                 </div>
                 <div className="w-full md:w-2/3 flex flex-col gap-3 px-12 py-6">
                     <h2 className="font-bold text-xl">COMMENTS</h2>
                     <div className="max-h-96 overflow-y-scroll p-2">
-                        <CommentList comments={data['reviews']} />
+                        <CommentList comments={reviews} />
                     </div>
                 </div>
             </div>
@@ -511,7 +512,7 @@ const Body = ({ data }) => {
     var { id_, category, sub_category,
         title, article_number, average_rating, total_reviews,
         real_price, discounted_price, discount_pc,
-        unique_identifier, stock_keeping_unit, available_sizes } = data;
+        unique_identifier, stock_keeping_unit, available_sizes, images, reviews } = data;
 
     category = category.replace('_', ' ').toUpperCase();
     sub_category = sub_category.replace('_', ' ').toUpperCase();
@@ -532,9 +533,10 @@ const Body = ({ data }) => {
                 uuid={unique_identifier}
                 sku={stock_keeping_unit}
                 sizes={available_sizes}
+                images={images}
             />
             <Legal />
-            <Reviews />
+            <Reviews averageRating={average_rating} reviews={reviews} />
         </div>
     )
 };
