@@ -2,7 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
-/* .font-roboto {
+@layer base {
+    ul,
+    ol {
+        list-style: revert;
+    }
+}
+
+.font-roboto {
     font-family: 'Roboto', sans-serif;
 }
 
@@ -32,7 +39,7 @@ body ::-webkit-scrollbar-thumb:hover {
 
 body ::-webkit-scrollbar:horizontal {
     height: 10px;
-} */
+}
 
 input:focus {
     outline: none;

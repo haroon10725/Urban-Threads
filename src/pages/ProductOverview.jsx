@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import Navbar from '../components/Navbar/navbar.jsx';
 import Footer from '../components/Footer/footer.jsx';
@@ -6,129 +6,12 @@ import Footer from '../components/Footer/footer.jsx';
 import Slider from 'react-slick';
 import { FaStar, FaStarHalfAlt, FaRegStar } from 'react-icons/fa';
 import { IconContext } from 'react-icons';
+import { useParams } from 'react-router-dom';
 
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-
-const data = {
-    "title": "Men'S Dark Navy Blazer",
-    "article_number": "EMTB22W",
-    "variation_code": "6771",
-    "unique_identifier": "EMTB22W-6771",
-    "stock_keeping_unit": "231518",
-    "short_description": [
-        "Men's Blazer",
-        "Slim Fit",
-        "Cotton Fabric",
-        "Printed Inner Satin",
-        "Fancy Buttons"
-    ],
-    "real_price": 12991.0,
-    "discounted_price": 9743.0,
-    "discount_pc": 25.0,
-    "colors": ["Grey", "Black"],
-    "available_sizes": [
-        "40",
-        "42",
-        "44"
-    ],
-    "images": [
-        "https://edenrobe.com/cdn/shop/products/22_M_MenBlazer_EMTB22-6771_1_70ea60d6-fae4-4065-a634-71044883da49.jpg?v=1701517101",
-        "https://edenrobe.com/cdn/shop/products/22_M_MenBlazer_EMTB22-6771_2_e02172be-7150-41a8-a6cb-fa9331971336.jpg?v=1701517101",
-        "https://edenrobe.com/cdn/shop/products/22_M_MenBlazer_EMTB22-6771_3_8d2fac6d-a8e7-4c08-9143-328a861d51e1.jpg?v=1701517101",
-        "https://edenrobe.com/cdn/shop/products/22_M_MenBlazer_EMTB22-6771_4_24874e26-228f-4fcd-b78d-3ebf241eb82f.jpg?v=1701517101",
-        "https://edenrobe.com/cdn/shop/products/22_M_MenBlazer_EMTB22-6771_5_f43b52d2-9956-4be6-86fa-eb85b1d284a2.jpg?v=1701517101",
-        "https://edenrobe.com/cdn/shop/products/22_M_MenBlazer_EMTB22-6771_6.jpg?v=1701517101"
-    ],
-    "total_reviews": 12,
-    "average_rating": 3.8,
-    "reviews": [
-        {
-            "rating": 2,
-            "name": "Jared Clark",
-            "gender": "male",
-            "nationality": "NL",
-            "comment": "Acceptable fabric, but the fit was awkward. Customer service was somewhat responsive."
-        },
-        {
-            "rating": 3,
-            "name": "Mike Castro",
-            "gender": "male",
-            "nationality": "NL",
-            "comment": "The fabric was alright, but the item seemed slightly less durable. Customer service was responsive."
-        },
-        {
-            "rating": 1,
-            "name": "Erik Gonzalez",
-            "gender": "male",
-            "nationality": "GB",
-            "comment": "Received an item with uneven seams and an odd, lingering odor. Fabric quality was substandard\u2014thin and prone to tearing. Customer support's apathy was disheartening."
-        },
-        {
-            "rating": 5,
-            "name": "Ricky Rodriquez",
-            "gender": "male",
-            "nationality": "NL",
-            "comment": "The fabric felt heavenly against the skin. The quality and feel were exceptional. The fit was impeccable, earning its place as an instant favorite. Definitely recommend!"
-        },
-        {
-            "rating": 4,
-            "name": "Derek Chapman",
-            "gender": "male",
-            "nationality": "MX",
-            "comment": "Presented this attire as a gift and it was adored. The fabric's softness was lauded despite a snug fit. The durability and style won hearts."
-        },
-        {
-            "rating": 3,
-            "name": "Brent Ruiz",
-            "gender": "male",
-            "nationality": "DK",
-            "comment": "The quality was okay, but the fit wasn't as expected. Delivery was slightly delayed."
-        },
-        {
-            "rating": 1,
-            "name": "Morris Lambert",
-            "gender": "male",
-            "nationality": "ES",
-            "comment": "Fabric quality was incredibly disappointing, resembling a flimsy costume. Sizes were far from accurate, rendering the fit impossible. Customer support was frustratingly unyielding."
-        },
-        {
-            "rating": 2,
-            "name": "David Harper",
-            "gender": "male",
-            "nationality": "AU",
-            "comment": "Mediocre fabric, and the sizing was a bit small. Delivery was delayed."
-        },
-        {
-            "rating": 5,
-            "name": "Bernard Jones",
-            "gender": "male",
-            "nationality": "AU",
-            "comment": "The fabric felt heavenly against the skin. The quality and feel were exceptional. The fit was impeccable, earning its place as an instant favorite. Definitely recommend!"
-        },
-        {
-            "rating": 5,
-            "name": "Ben Mason",
-            "gender": "male",
-            "nationality": "AE",
-            "comment": "The comfort from this attire felt personalized. The fabric's quality and texture were exceptional. The fit was flawless, becoming an instant favorite."
-        },
-        {
-            "rating": 3,
-            "name": "Billy Collins",
-            "gender": "male",
-            "nationality": "UA",
-            "comment": "Fabric was acceptable, but the stitching could have been neater. Delivery was within the specified timeframe."
-        },
-        {
-            "rating": 5,
-            "name": "Shane Rice",
-            "gender": "male",
-            "nationality": "AU",
-            "comment": "Wearing this felt like an upscale upgrade. The fabric was chic and seasonally appropriate. The flawless fit and swift delivery made it a standout purchase. Definitely recommend."
-        }
-    ]
-}
+import { useCookies } from "react-cookie";
+import { useCookieContext } from "../cookies/CookiesProvider.jsx";
 
 const Carousel = ({ images }) => {
     const settings = {
@@ -234,17 +117,18 @@ const Pricing = ({ realPrice, discountedPrice, discount }) => {
     );
 }
 
-const ColorSelector = ({ colors }) => {
-    const [selectedColor, setSelectedColor] = useState('');
+const ColorSelector = () => {
+    // const [selectedColor, setSelectedColor] = useState('');
 
-    const handleColorChange = (color) => {
-        setSelectedColor(color);
-    };
+    // const handleColorChange = (color) => {
+    //     setSelectedColor(color);
+    // };
 
     return (
         <div className="flex flex-col gap-3">
             <h2 className="font-bold">COLOR</h2>
-            <div className="flex space-x-2">
+            <p className="text-xs text-red-400">Customizations not available.</p>
+            {/* <div className="flex space-x-2">
                 {colors.map((color, index) => (
                     <button
                         key={index}
@@ -252,7 +136,7 @@ const ColorSelector = ({ colors }) => {
                         onClick={() => handleColorChange(color)}
                     >{color}</button>
                 ))}
-            </div>
+            </div> */}
         </div>
     );
 };
@@ -281,7 +165,7 @@ const SizeSelector = ({ sizes }) => {
                         />
                         <button
                             type="button"
-                            className={`border-2 text-sm p-1 w-9 h-9 ${selectedSize === size ? 'bg-purple-50 border-purple-500 text-purple-500 font-bold' : 'border-neutral-400 bg-neutral-100 text-neutral-800'}`}
+                            className={`border-2 text-sm p-1 w-12 h-9 ${selectedSize === size ? 'bg-purple-50 border-purple-500 text-purple-500 font-bold' : 'border-neutral-400 bg-neutral-100 text-neutral-800'}`}
                             onClick={() => setSelectedSize(size)}
                         >
                             {size}
@@ -319,47 +203,72 @@ const QuantitySelector = () => {
     );
 };
 
-const Overview = ({ mainCategory, subCategory }) => {
+const Overview = (
+    { category, subCategory, title, articleNumber,
+        averageRating, totalReviews, realPrice,
+        discountedPrice, discount,
+        uuid, sku, sizes, images }) => {
+
+    const { cookies, updateCookie } = useCookieContext();
+
+    const addItemToCart = () => {
+        console.log(cookies.cart)
+        cookies.cart[uuid] = {
+            quantity: 4,
+            price: discountedPrice
+        }
+        // updateCookie('cart', {"new": "value"})
+        // console.log(cookies.cart)
+        // if (uuid in cookies.cart) {
+        //     cookies.cart[uuid] += 1;
+        // }
+        // else {
+        //     cookies.cart[uuid] = 1;
+        // }
+        // alert(cookies.cart[uuid])
+        // console.log(cookies.cart)
+    }
+
     return (
         <div className="text-ut-gray gap-2 md:gap-4">
             <div className="flex flex-col lg:flex-row">
                 <div className="flex-1 overflow-hidden py-16 px-12">
                     <div className="px-6 md:px-24 lg:px-4 xl:px-8 2xl:px-32">
                         <div>
-                            <Carousel images={data['images']} />
+                            <Carousel images={images} />
                         </div>
                     </div>
                 </div>
                 <div className="flex-1 flex flex-col py-16 px-12 gap-5">
                     <div id="headings" className="flex flex-col gap-2 font-bold">
-                        <h2 className="text-sm text-teal-700">{mainCategory} | {subCategory}</h2>
-                        <h1 className="text-2xl">{data['title']}</h1>
-                        <h3 className="text-xs text-neutral-800">{data['article_number']}</h3>
+                        <h2 className="text-sm text-teal-700">{category} | {subCategory}</h2>
+                        <h1 className="text-2xl">{title}</h1>
+                        <h3 className="text-xs text-neutral-800">{articleNumber}</h3>
                     </div>
                     <div id="ratings" className="flex gap-6 font-bold">
                         <span>
-                            <RatingStars averageRating={data['average_rating']} />
+                            <RatingStars averageRating={averageRating} />
                         </span>
                         <span>
-                            {data['average_rating']} | {data['total_reviews']} REVIEWS
+                            {averageRating} | {totalReviews} REVIEWS
                         </span>
                     </div>
                     <div id="price">
-                        <Pricing realPrice={data['real_price']} discountedPrice={data['discounted_price']} discount={data['discount_pc']} />
+                        <Pricing realPrice={realPrice} discountedPrice={discountedPrice} discount={discount} />
                     </div>
                     <div id="metaInfo" className="text-neutral-600 text-xs">
                         <p>
-                            <b>UUID:</b> {data['unique_identifier']}
+                            <b>UUID:</b> {uuid}
                         </p>
                         <p>
-                            <b>SKU:</b> {data['stock_keeping_unit']}
+                            <b>SKU:</b> {sku}
                         </p>
                     </div>
                     <div id="color">
-                        <ColorSelector colors={data['colors']} />
+                        <ColorSelector colors={[]} />
                     </div>
                     <div id="size">
-                        <SizeSelector sizes={data['available_sizes']} />
+                        <SizeSelector sizes={sizes} />
                     </div>
                     <div id="quantity">
                         <QuantitySelector />
@@ -368,7 +277,7 @@ const Overview = ({ mainCategory, subCategory }) => {
                     <div id="addToCart">
                         <p className="text-[0.7rem] text-neutral-600"><span className="text-green-500">*</span> Please note that the product appearance may vary from what is shown in the pictures.</p>
                         <br />
-                        <button className='px-4 py-2 w-full bg-pink-600 hover:bg-pink-700 active:bg-pink-800 text-white'>Add to Cart</button>
+                        <button className='px-4 py-2 w-full bg-pink-600 hover:bg-pink-700 active:bg-pink-800 text-white' onClick={addItemToCart}>Add to Cart</button>
                     </div>
                 </div>
             </div>
@@ -413,17 +322,18 @@ const Legal = () => {
 
 const Bar = ({ reviews, totalReviews, label, color }) => {
     const starPercentage = Math.round((reviews / totalReviews) * 100);
+    var classes = `w-[${starPercentage}%] bg-${color}-600`
     return (
         <div className="flex items-center">
             <div className="w-20 text-sm">{label}</div>
             <div className="flex h-3 w-full bg-neutral-200">
-                <div className={`w-[${starPercentage}%] bg-${color}-600`} value={reviews}>&nbsp;</div>
+                <div className={classes} value={reviews}>&nbsp;</div>
             </div>
         </div>
     );
 }
 
-const DistributionChart = ({ reviews }) => {
+const DistributionChart = ({ totalReviews, reviews }) => {
     const starCounts = {
         1: 0,
         2: 0,
@@ -431,7 +341,6 @@ const DistributionChart = ({ reviews }) => {
         4: 0,
         5: 0
     };
-    const totalReviews = data['total_reviews'];
     reviews.forEach(review => {
         const { rating } = review;
         starCounts[rating]++;
@@ -475,25 +384,25 @@ const CommentList = ({ comments }) => {
     );
 };
 
-const Reviews = () => {
+const Reviews = ({ averageRating, totalReviews, reviews }) => {
     return (
         <div>
             <div className="flex flex-col md:flex-row">
                 <div className="w-full md:w-1/3 flex flex-col gap-3 px-12 py-6">
                     <h2 className="font-bold text-xl">REVIEWS</h2>
                     <div className="flex justify-between items-center">
-                        <h1 className="font-bold text-5xl">{data['average_rating']}</h1>
-                        <RatingStars averageRating={data['average_rating']} size="32px" />
+                        <h1 className="font-bold text-5xl">{averageRating}</h1>
+                        <RatingStars averageRating={averageRating} size="32px" />
                     </div>
                     <div>
-                        {data['total_reviews']} REVIEWS
-                        <DistributionChart reviews={data['reviews']} />
+                        {totalReviews} REVIEWS
+                        <DistributionChart reviews={reviews} totalReviews={totalReviews} />
                     </div>
                 </div>
                 <div className="w-full md:w-2/3 flex flex-col gap-3 px-12 py-6">
                     <h2 className="font-bold text-xl">COMMENTS</h2>
                     <div className="max-h-96 overflow-y-scroll p-2">
-                        <CommentList comments={data['reviews']} />
+                        <CommentList comments={reviews} />
                     </div>
                 </div>
             </div>
@@ -501,23 +410,67 @@ const Reviews = () => {
     );
 }
 
-const Body = () => {
-    const mainCategory = "Men";
-    const subCategory = "Suits"
+const Body = ({ data }) => {
+
+    var { id_, category, sub_category,
+        title, article_number, average_rating, total_reviews,
+        real_price, discounted_price, discount_pc,
+        unique_identifier, stock_keeping_unit, available_sizes, images, reviews } = data;
+
+    category = category.replace('_', ' ').toUpperCase();
+    sub_category = sub_category.replace('_', ' ').toUpperCase();
+    title = title.replace('\'S', '\'s')
+
     return (
         <div className="flex flex-col gap-24 px-8 py-12 text-ut-gray font-lexend">
-            <Overview mainCategory={mainCategory} subCategory={subCategory} />
+            <Overview
+                category={category}
+                subCategory={sub_category}
+                title={title}
+                articleNumber={article_number}
+                averageRating={average_rating}
+                totalReviews={total_reviews}
+                realPrice={real_price}
+                discountedPrice={discounted_price}
+                discount={discount_pc}
+                uuid={unique_identifier}
+                sku={stock_keeping_unit}
+                sizes={available_sizes}
+                images={images}
+            />
             <Legal />
-            <Reviews />
+            <Reviews averageRating={average_rating} totalReviews={total_reviews} reviews={reviews} />
         </div>
     )
 };
 
 function ProductOverview() {
+    const { category, subCategory, productUUID } = useParams();
+
+    const [productDetails, setProductDetails] = useState(null);
+
+    useEffect(() => {
+        const fetchProductDetails = async () => {
+            try {
+                const response = await fetch(`http://localhost:3000/api/products/${category}/${subCategory}/${productUUID}`);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                const data = await response.json();
+                setProductDetails(data['documents'][0]);
+            } catch (error) {
+                console.error('Error fetching product details:', error.message);
+            }
+        };
+        fetchProductDetails();
+    }, []);
+
     return (
         <div>
             <Navbar />
-            <Body />
+            {productDetails && (
+                <Body data={productDetails} />
+            )}
             <Footer />
         </div>
     );
