@@ -2,17 +2,10 @@ const express = require('express');
 const { json } = require('react-router-dom');
 const app = express();
 const port = 3000;
-<<<<<<< HEAD
 const cors = require('cors')
 const bodyParser = require('body-parser')
 
-app.use(cors())
-=======
-const bodyParser = require('body-parser');
-const cors = require('cors');
-
 app.use(cors());
->>>>>>> c57f6361387d15832b4b87465b9389fbfadfef92
 app.use(express.static('build'));
 
 const API_KEY = 'ZOlIbr32F9Z8KGoIeMIBcqSiLUuRVJQnuZrUF91R97398K4IRrfIa9uIedM6d7PJ';
@@ -68,7 +61,7 @@ app.get('/api/products/:category?/:subCategory?/:productUUID?', async (req, res,
 });
 
 // For products Page
-app.get('/api/', async (_req, res, _next) => {
+app.get('/data/product/fetch', async (_req, res, _next) => {
   const apiKey = 'ZOlIbr32F9Z8KGoIeMIBcqSiLUuRVJQnuZrUF91R97398K4IRrfIa9uIedM6d7PJ';
   const url = 'https://ap-southeast-1.aws.data.mongodb-api.com/app/data-zwsiz/endpoint/data/v1/action/find';
   const data = {

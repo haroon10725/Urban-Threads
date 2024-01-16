@@ -37,31 +37,20 @@ import "../App.css"
 import Cookies from "cookies"
 import { data } from "autoprefixer"
 import { useState, useEffect, useRef } from "react"
-import { response } from "express"
 
 
 
 
 export default function ProductPage() {
 
-    const checkboxRef = useRef(null);
-
-    // Use useEffect to run the code after the component renders
-    useEffect(() => {
-        // Access the checkbox element and set its checked property
-        if (checkboxRef.current) {
-            checkboxRef.current.checked = true;
-        }
-    }, []);
-
 
     const [products, setproducts] = useState([])
     const [Categcount, setCategcount] = useState([])
+    const [isLoading, setIsLoading] = useState(true);
     // Initializating important constants and variables
     const prodcts = [];
     const desiredProducts = [];
     const AllSubCategories = [];
-    let countSubcategCheck = [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
     let FilteredSubCategories = [];
     const subCategories = [];
 
@@ -69,7 +58,8 @@ export default function ProductPage() {
 
 
     useEffect(() => {
-
+        localStorage.setItem('arrayofcheck', countCheck[0].checked)
+        alert(localStorage.getItem('arrayofcheck'))
         function processData(data) {
             const Categories = data.documents
             Categories.forEach(cat => {
@@ -80,20 +70,16 @@ export default function ProductPage() {
             subCategories.forEach(m => {
                 // traversing a single subcategory
                 m.forEach(s => {
+                    // storing category here
                     AllSubCategories.push(s.name)
                 })
 
             })
-            // Traversing the data fields of each subcategory
-            // prodcts.forEach(items => {
-            //     // Traversing the items of each data field
-            //     items.forEach(item => {
 
-            //     })
-            // })
+
             // Loops have ended here
-            for (let i = 0; i < AllSubCategories.length && i < countCheck.length; i++) {
-                if (countCheck[i].checked == true) {
+            for (let i = 0; i < AllSubCategories.length && i < Categcount.length; i++) {
+                if (Categcount[i].checked == true) {
                     FilteredSubCategories.push(AllSubCategories[i])
 
                 }
@@ -102,51 +88,54 @@ export default function ProductPage() {
                 FilteredSubCategories = AllSubCategories
             }
 
-            subCategories.forEach(m => {
-                // traversing a single subcategory
-                m.forEach(s => {
-                    for (let i = 0; i <= FilteredSubCategories.length; i++) {
-                        if (s.name == FilteredSubCategories[i]) {
-                            // Storing the products of a filtered subcategories into Products Array
-                            prodcts.push(s.data)
+
+            Categories.forEach(cat => {
+                // console.log(cat.name)
+                // subCategories.push(cat.sub_categories)
+                cat.sub_categories.forEach(m => {
+                    // traversing a single subcategory
+                    m.data.forEach(s => {
+                        for (let i = 0; i <= FilteredSubCategories.length; i++) {
+                            if (m.name == FilteredSubCategories[i]) {
+                                // Storing the products of a filtered subcategories into Products Array
+                                prodcts.push(cat)
+                            }
                         }
                     }
+                    )
                 }
                 )
-            }
-            )
-            // console.log(FilteredSubCategories)
-            // console.log("Safeee")
-            // console.log(prodcts)
-            prodcts.forEach(e => {
-                e.forEach(d => {
-                    desiredProducts.push(d)
-                })
             })
-            return desiredProducts
+
+            // prodcts.forEach(e => {
+            //     e.forEach(d => {
+            //         desiredProducts.push(d)
+            //     })
+            // })
+            return prodcts
         }
 
-        async function fetchData() {
-            try {
-                const response = await fetch("http://localhost:3000/data/product/fetch");
+        // async function fetchData() {
+        //     try {
+        //         const response = await fetch("http://localhost:3000/data/product/fetch");
 
-                if (!response.ok) {
-                    throw new Error("Network response was not ok");
-                }
+        //         if (!response.ok) {
+        //             throw new Error("Network response was not ok");
+        //         }
 
-                const data = await response.json();
-                // setcountCheck(filtercountCheck)
-                const mydata = processData(data);
+        //         const data = await response.json();
+        //         // setcountCheck(filtercountCheck)
+        //         const mydata = processData(data);
 
-                setproducts(mydata)
-                setCategcount(countCheck)
+        //         setproducts(mydata)
+        //         setCategcount(countCheck)
 
-            } catch (error) {
-                console.error("Error:", error);
-            }
-        }
+        //     } catch (error) {
+        //         console.error("Error:", error);
+        //     }
+        // }
 
-        fetchData();
+        // fetchData();
         // fetch("http://localhost:3000/data/product/fetch")
         //     .then(response => {
         //         if (!response.ok) {
@@ -158,45 +147,25 @@ export default function ProductPage() {
         //         setCategcount(countCheck)
         //         const mydata = processData(data);
         //         setproducts(mydata);
-        //         // const filter = document.getElementsByClassName('apply-filter')
-        //         // filter[0].addEventListener('click', function () {
-        //         //     fetch("http://localhost:3000/data/product/fetch")
-        //         //         .then(response => {
-        //         //             if (!response.ok) {
-        //         //                 throw new Error("Network response was not ok");
-        //         //             }
-        //         //             return response.json()
-        //         //         })
-        //         //         .then(data => {
-        //         //             setCategcount(countCheck)
-        //         //             const newdata = processData(data)
-        //         //             setproducts(newdata)
-        //         //         })
-        //         //         .catch(error => {
-        //         //             console.error("Error:", error);
-        //         //         })
-        //         // })
-        //     })
-        //     .catch(error => {
-        //         console.error("Error:", error);
-        //     });
+        fetch("http://localhost:3000/data/product/fetch")
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                }
+                return response.json()
+            })
+            .then(data => {
+                setCategcount(countCheck)
+                const newdata = processData(data)
+                setproducts(newdata)
+                setIsLoading(false)
+            })
+            .catch(error => {
+                console.error("Error:", error);
+            })
+
     }, []);
 
-
-    // fetch("http://localhost:3000/data/product/fetch")
-    //     .then(response => {
-    //         if (!response.ok) {
-    //             throw new Error("Network response was not ok");
-    //         }
-    //         return response.json();
-    //     })
-    //     .then(data => {
-    //         const mydata = processData(data);
-    //         setproducts(mydata);
-    //     })
-    //     .catch(error => {
-    //         console.error("Error:", error);
-    //     });
 
     return (
         <div className="page">
@@ -291,7 +260,7 @@ export default function ProductPage() {
                                         <p className="a3 text-gray-900">Items</p>
                                     </div>
                                     <form className="mt-1" action="">
-                                        <input id="checkbox-10" className="check p-3 h-5 w-5 border border-gray-400 mr-3 my-1  rounded-md" type="checkbox" ref={checkboxRef} />
+                                        <input id="checkbox-10" className="check p-3 h-5 w-5 border border-gray-400 mr-3 my-1  rounded-md" type="checkbox" />
                                         <label className="a1" htmlFor="">Kurtas</label>
 
                                         <br />
@@ -384,23 +353,41 @@ export default function ProductPage() {
             </div>
             <div className="flex flex-col items-center mt-[1rem]">
                 <Category header={"Pants"} />
-                <div className="flex">
+                <div className="flex w-full">
                     <Productpanel />
-                    <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3">
-                        {products.map(product => {
-                            return (
 
-                                <Product
-                                    pic={starpic}
-                                    productname={product.title}
-                                    prodpic={product.images[0]}
-                                    reviews={product.total_reviews}
-                                    newprice={product.real_price}
 
-                                />)
-                        })}
 
-                    </div>
+                    {/* first we travserse a single subcategory from an array of many subcategories as our data has a list of them */}
+                    {isLoading ? (
+                        <Loaders />
+                    ) : (
+                        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3">
+                            {
+                                products.slice(0, 4).map((category, categoryIndex) => (
+                                    category.sub_categories.map((subcategories, categoriesIndex) => (
+                                        subcategories.data.map((item, itemIndex) => (
+                                            <Product
+                                                prodpic={item.images[0]}
+                                                productname={item.title}
+                                                reviews={item.total_reviews}
+                                                newprice={item.real_price}
+                                                category={category.name}
+                                                subcategory={subcategories.name}
+                                                productId={item.unique_identifier}
+                                                star
+                                            />
+                                        )
+                                        )
+                                    )
+                                    )))
+                            }
+
+                        </div>
+                    )}
+
+
+
                 </div>
                 <Category header={"Trousers"} />
                 <div className="flex">
@@ -419,13 +406,39 @@ export default function ProductPage() {
             </div>
 
             <Footer />
-        </div>
+        </div >
     )
 }
 function Category({ header }) {
     return (
         <div className="header flex justify-start lg:justify-center lg:mb-[4rem] w-5/6 xl:w-[89%] mb-5">
             <p className="text-2xl lg:text-4xl">{header}</p>
+        </div>
+    )
+}
+
+function Loaders() {
+    return (
+        <div className="grid gap-32 mx-4 w-[222rem] grid-cols-1 sm:grid-cols-2 xl:grid-cols-3">
+            <div className=" h-[52vh] bg-gray-100 animate-pulse"></div>
+            <div className=" h-[52vh] bg-gray-100 animate-pulse"></div>
+            <div className=" h-[52vh] bg-gray-100 animate-pulse"></div>
+            <div className=" h-[52vh] bg-gray-100 animate-pulse"></div>
+            <div className=" h-[52vh] bg-gray-100 animate-pulse"></div>
+            <div className=" h-[52vh] bg-gray-100 animate-pulse"></div>
+            <div className=" h-[52vh] bg-gray-100 animate-pulse"></div>
+            <div className=" h-[52vh] bg-gray-100 animate-pulse"></div>
+            <div className=" h-[52vh] bg-gray-100 animate-pulse"></div>
+            <div className=" h-[52vh] bg-gray-100 animate-pulse"></div>
+            <div className=" h-[52vh] bg-gray-100 animate-pulse"></div>
+            <div className=" h-[52vh] bg-gray-100 animate-pulse"></div>
+            <div className=" h-[52vh] bg-gray-100 animate-pulse"></div>
+            <div className=" h-[52vh] bg-gray-100 animate-pulse"></div>
+            <div className=" h-[52vh] bg-gray-100 animate-pulse"></div>
+            <div className=" h-[52vh] bg-gray-100 animate-pulse"></div>
+            <div className=" h-[52vh] bg-gray-100 animate-pulse"></div>
+            <div className=" h-[52vh] bg-gray-100 animate-pulse"></div>
+            <div className=" h-[52vh] bg-gray-100 animate-pulse"></div>
         </div>
     )
 }

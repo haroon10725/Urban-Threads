@@ -89,7 +89,7 @@ export function Productpanel() {
 
 export function FakePanel() {
     return (
-        <div className="panel w-full ml-5 lg:grid lg:grid-cols-1 hidden lg:h-full">
+        <div className="panel w-[200%] ml-5 lg:grid lg:grid-cols-1 hidden lg:h-full">
             
         </div>
     )

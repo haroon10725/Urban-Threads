@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    ul,
+    ol {
+        list-style: revert;
+    }
+}
+
+.font-roboto {
+    font-family: 'Roboto', sans-serif;
+}
+
+.font-lexend {
+    font-family: 'Lexend', sans-serif;
+}
+
+.text-ut-gray {
+    color: #424242;
+}
+
+body ::-webkit-scrollbar {
+    width: 10px;
+}
+
+body ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+body ::-webkit-scrollbar-thumb {
+    background: #be185d;
+}
+
+body ::-webkit-scrollbar-thumb:hover {
+    background: #9d174d;
+}
+
+body ::-webkit-scrollbar:horizontal {
+    height: 10px;
+}
+
+input:focus {
+    outline: none;
+}
