@@ -154,7 +154,7 @@ const Carousel = ({ images }) => {
 };
 
 const Star = (props) => {
-    const { color="#eab308", size="24px" } = props;
+    const { color = "#eab308", size = "24px" } = props;
     return (
         <IconContext.Provider value={{ color: color, size: size }}>
             <FaStar />
@@ -163,7 +163,7 @@ const Star = (props) => {
 }
 
 const StarHalfAlt = (props) => {
-    const { color="#eab308", size="24px" } = props;
+    const { color = "#eab308", size = "24px" } = props;
     return (
         <IconContext.Provider value={{ color: color, size: size }}>
             <FaStarHalfAlt />
@@ -172,7 +172,7 @@ const StarHalfAlt = (props) => {
 }
 
 const RegStar = (props) => {
-    const { color="#eab308", size="24px" } = props;
+    const { color = "#eab308", size = "24px" } = props;
     return (
         <IconContext.Provider value={{ color: color, size: size }}>
             <FaRegStar />
@@ -181,7 +181,7 @@ const RegStar = (props) => {
 }
 
 const RatingStars = (props) => {
-    const { averageRating, color, size} = props;
+    const { averageRating, color, size } = props;
 
     const totalStars = 5;
     const fullStars = Math.floor(averageRating);
@@ -438,11 +438,11 @@ const DistributionChart = ({ reviews }) => {
     });
     return (
         <div className="flex flex-col gap-2 py-4">
-            <Bar reviews={starCounts[5]} totalReviews={totalReviews} label="Best" color="green"/>
-            <Bar reviews={starCounts[4]} totalReviews={totalReviews} label="Good" color="lime"/>
-            <Bar reviews={starCounts[3]} totalReviews={totalReviews} label="Average" color="yellow"/>
-            <Bar reviews={starCounts[2]} totalReviews={totalReviews} label="Poor" color="orange"/>
-            <Bar reviews={starCounts[1]} totalReviews={totalReviews} label="Worst" color="red"/>
+            <Bar reviews={starCounts[5]} totalReviews={totalReviews} label="Best" color="green" />
+            <Bar reviews={starCounts[4]} totalReviews={totalReviews} label="Good" color="lime" />
+            <Bar reviews={starCounts[3]} totalReviews={totalReviews} label="Average" color="yellow" />
+            <Bar reviews={starCounts[2]} totalReviews={totalReviews} label="Poor" color="orange" />
+            <Bar reviews={starCounts[1]} totalReviews={totalReviews} label="Worst" color="red" />
         </div>
     )
 };

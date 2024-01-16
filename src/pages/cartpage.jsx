@@ -4,6 +4,8 @@ import Labels from "../components/EntryLabels/entrylabels.jsx"
 import CartPanel from "../components/Cartpanel/cartpanel.jsx"
 import Entry from "../components/Entries/entry.jsx"
 import pic2 from "../assets/pic2.jpeg"
+import { useCookies } from 'react-cookie';
+
 
 export default function CartPage() {
     return (
@@ -12,6 +14,7 @@ export default function CartPage() {
 }
 
 function Page() {
+    const [cookies, setCookie] = useCookies(['Name', 'Password']);
     return (
         <div className="root">
             <Navbar />
@@ -26,6 +29,14 @@ function Page() {
                     <Entry productimg={pic2} name={"Shinu Sleeve Shirt"} qty={"1"} quantity={"Color: Gray"} subtotal={"$39.95"} price={"$39.95"} colour={"Gray"} size={"Size: XS(US)/ M(Japan)"} />
                 </div>
                 <CartPanel />
+            </div>
+            <div>
+
+                <div>
+                    <p>{cookies.Name}</p>
+                    <p>{cookies.Password}</p>
+                </div>
+
             </div>
             <div className="footer relative top-[34.5rem]">
                 <Footer />

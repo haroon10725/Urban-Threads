@@ -6,6 +6,7 @@ import Bottom from "../components/Bottom/bottom.jsx";
 import Contact from "../components/Contact/contact.jsx";
 import Footer from "../components/Footer/footer.jsx";
 
+
 export default function MainPage() {
     return (
         <Page />

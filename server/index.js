@@ -2,9 +2,10 @@ const express = require('express');
 const { json } = require('react-router-dom');
 const app = express();
 const port = 3000;
+const cors = require('cors')
 const bodyParser = require('body-parser')
 
-
+app.use(cors())
 app.use(express.static('build'));
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
 // For Product Overview Page
@@ -38,13 +39,13 @@ app.get('/data/overview/fetch', async (_req, res, _next) => {
 });
 
 // For products Page
-app.get('/data/product/fetch', async (_req, res, _next) => {
+app.get('/api/', async (_req, res, _next) => {
   const apiKey = 'ZOlIbr32F9Z8KGoIeMIBcqSiLUuRVJQnuZrUF91R97398K4IRrfIa9uIedM6d7PJ';
   const url = 'https://ap-southeast-1.aws.data.mongodb-api.com/app/data-zwsiz/endpoint/data/v1/action/find';
   const data = {
     dataSource: 'Cluster0',
     database: 'UrbanThreadsDB',
-    collection: 'Products',
+    collection: 'ProductsH',
     filter: { name: { $in: ['men', 'boys'] } }
   }
 
