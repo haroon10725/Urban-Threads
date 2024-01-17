@@ -6,13 +6,13 @@ export default function Frontier() {
     return (
         <div className="">
             <div className="a1 flex items-end">
-                <div className="w-full mb-[1vh] absolute flex-col h-[6rem] flex">
+                <div className="w-full mb-[1vh] absolute flex-col lg:ml-2 lg:mb-8 flex">
                     <div className="textbox">
-                        <p className="text-xl ml-2 font-medium sm:font-bold text-white">KIRENA</p>
-                        <p className="text-white font-medium text-sm sm:font-bold ml-2 ">The most comfortable stylish pants you'll ever have.</p>
+                        <p className="a2 text-xl ml-2 font-medium sm:font-bold text-white lg:text-3xl 2xl:text-6xl">KIRENA</p>
+                        <p className="a3 text-white font-medium text-sm sm:font-bold ml-2 md:text-md lg:text-lg">The most comfortable stylish pants you'll ever have.</p>
                     </div>
                     <div className="btnbox">
-                        <button className="ml-2 bg-[#f2cfcf] w-[7rem] h-[2rem] text-sm text-white md:text-md">SHOP NOW</button>
+                        <button className="ml-2 bg-[#f2cfcf] w-[7rem] h-[2rem] lg:w-[10rem] lg:h-[4rem] text-sm text-white md:text-md lg:text-xl lg:font-bold">SHOP NOW</button>
                     </div>
                 </div>
                 <img className="sm:hidden" src={pic2} alt="mainpic1" />

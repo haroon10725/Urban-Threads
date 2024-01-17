@@ -2,8 +2,8 @@ const express = require('express');
 const { json } = require('react-router-dom');
 const app = express();
 const port = 3000;
-const bodyParser = require('body-parser');
-const cors = require('cors');
+const cors = require('cors')
+const bodyParser = require('body-parser')
 
 app.use(cors());
 app.use(express.static('build'));
@@ -67,7 +67,7 @@ app.get('/data/product/fetch', async (_req, res, _next) => {
   const data = {
     dataSource: 'Cluster0',
     database: 'UrbanThreadsDB',
-    collection: 'Products',
+    collection: 'ProductsH',
     filter: { name: { $in: ['men', 'boys'] } }
   }
 

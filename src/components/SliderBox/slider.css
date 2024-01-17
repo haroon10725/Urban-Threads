@@ -1,6 +1,6 @@
 .head p {
     font-family: "Inria", sans-serif;
-    font-family:"Lexend",sans-serif;
+    font-family: "Lexend", sans-serif;
     font-weight: 500;
 }
 
@@ -10,6 +10,22 @@
 
 .slider {
     /* scrollbar-width:thin; */
-    scrollbar-width:none;
-    height:120%;
+    scrollbar-width: none;
+    height: 120%;
+}
+
+.a1 {
+    font-family: "Lexend", sans-serif;
+}
+
+.a2 {
+    font-family: "Roboto", sans-serif;
+}
+
+.a1 {
+    font-family: "Inter", sans-serif;
+}
+
+.a1 {
+    font-family: "Ubuntu", sans-serif;
 }
