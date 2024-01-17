@@ -1,6 +1,6 @@
 import "./entry.css"
 
-export default function Entry({ productimg, name,price, quantity, subtotal,qty, size, colour}) {
+export default function Entry({ productimg, name, price, quantity, subtotal, qty, size, colour }) {
     return (
         <div>
             <div className="hidden lg:grid grid-cols-10 ml-[3rem] h-[15rem]">
@@ -51,7 +51,7 @@ function QtyBox({ total }) {
     return (
         <div className="qtybox flex">
             <div className="border-black border border-1 p-1 lg:p-2 plus text-sm lg:text-lg font-bold cursor-pointer">+</div>
-            <div className="border-black border border-1 p-1 lg:p-2 total">
+            <div className="border-black border border-1 p-1 lg:p-1 total">
                 <p className="text-sm lg:text-lg">{total}</p>
             </div>
             <div className="border-black border border-1 p-1 lg:p-2 minus text-sm lg:text-lg font-bold cursor-pointer">-</div>

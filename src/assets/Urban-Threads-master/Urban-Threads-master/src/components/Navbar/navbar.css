@@ -1,0 +1,19 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.h1,
+li {
+    font-family: "Inria serif", serif;
+    font-family: "Lexend", sans-serif;
+}
+
+li {
+    display: inline-block;
+}
+
+.d1 {
+    font-family: "Inria serif", serif;
+    font-family: "Lexend", sans-serif;
+}
