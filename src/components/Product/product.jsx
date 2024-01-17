@@ -4,7 +4,7 @@ import star from "../../assets/star.png"
 
 
 
-export default function Product({ prodpic, productname, oldprice, newprice, reviews, category, subcategory, productId }) {
+export default function Product({ prodpic, rating, productname, oldprice, newprice, reviews, category, subcategory, productId }) {
     const [link, setlink] = useState([])
     useEffect(() => {
         let url = "http://localhost:5173/products/" + category + "/" + subcategory + "/" + productId
@@ -21,13 +21,10 @@ export default function Product({ prodpic, productname, oldprice, newprice, revi
             <div className="textbox mt-1">
                 <p className="text-md">{productname}</p>
             </div>
-            <div className="flex rating mt-1 justify-evenly w-80 items-center">
-                <div className="star flex w-[1rem]">
-                    <img src={star} alt="star" />
-                    <img src={star} alt="star" />
-                    <img src={star} alt="star" />
-                    <img src={star} alt="star" />
-                    <img src={star} alt="star" />
+            <div className="flex rating mt-1 justify-evenly w-32 items-center">
+                <div className="star flex">
+                    <p className="a1 text-sm text-gray-600 font-bold">{rating}</p>
+                    <img className="w-5 h-5" src={star} alt="star" />
                 </div>
                 <div className="reviews">
                     <p className="text-sm text-gray-500 font-bold">{reviews} reviews</p>

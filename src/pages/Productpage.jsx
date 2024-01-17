@@ -37,16 +37,33 @@ import "../App.css"
 import Cookies from "cookies"
 import { data } from "autoprefixer"
 import { useState, useEffect, useRef } from "react"
+import { Form } from "react-router-dom"
+import { rating } from "@material-tailwind/react"
 
 
 
 
 export default function ProductPage() {
 
-
+    // setting all the states
     const [products, setproducts] = useState([])
+    const [denimjeans, setdenimjeans] = useState([])
+    const [jackets, setjackets] = useState([])
+    const [sweatshirts, setsweatshirts] = useState([])
+    const [poloshirts, setpoloshirts] = useState([])
+    const [basictees, setbasictees] = useState([])
+    const [shalwarsuits, setshalwarsuits] = useState([])
+    const [hoodies, sethoodies] = useState([])
+    const [coatpants, setcoatpants] = useState([])
+    const [trousers, settrousers] = useState([])
+    const [kurtas, setkurtas] = useState([])
+    const [waistcoats, setwaistcoats] = useState([])
+    const [coatsblazers, setcoatsblazers] = useState([])
+    const [formalpants, setformalpants] = useState([])
+    const [graphictees, setgraphictees] = useState([])
+    const [shirts, setshirts] = useState([])
     const [Categcount, setCategcount] = useState([])
-    const [isLoading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(true)
     // Initializating important constants and variables
     const prodcts = [];
     const desiredProducts = [];
@@ -59,7 +76,7 @@ export default function ProductPage() {
 
     useEffect(() => {
         localStorage.setItem('arrayofcheck', countCheck[0].checked)
-        alert(localStorage.getItem('arrayofcheck'))
+        // alert(localStorage.getItem('arrayofcheck'))
         function processData(data) {
             const Categories = data.documents
             Categories.forEach(cat => {
@@ -115,38 +132,95 @@ export default function ProductPage() {
             return prodcts
         }
 
-        // async function fetchData() {
-        //     try {
-        //         const response = await fetch("http://localhost:3000/data/product/fetch");
+        // to Split different categories into arrays
+        function SplitCategories(data) {
+            const DenimJeans = [];
+            const Jackets = [];
+            const SweatShirts = [];
+            const PoloShirts = [];
+            const BasicTees = [];
+            const ShalwarSuits = [];
+            const Hoodies = [];
+            const CoatPants = [];
+            const Trousers = [];
+            const Kurtas = [];
+            const WaistCoats = [];
+            const CoatsBlazers = [];
+            const FormalPants = [];
+            const GraphicTees = [];
+            const Shirts = [];
 
-        //         if (!response.ok) {
-        //             throw new Error("Network response was not ok");
-        //         }
+            data.forEach(cat => {
+                // console.log(cat.name)
+                // subCategories.push(cat.sub_categories)
+                cat.sub_categories.forEach(m => {
+                    // traversing a single subcategory
+                    if (m.name == "denim_jeans") {
+                        DenimJeans.push(m)
+                    }
+                    if (m.name == "jackets") {
+                        Jackets.push(m)
+                    }
+                    if (m.name == "sweat_shirts") {
+                        SweatShirts.push(m)
+                    }
+                    if (m.name == "polo_shirts") {
+                        PoloShirts.push(m)
+                    }
+                    if (m.name == "basic_tees") {
+                        BasicTees.push(m)
+                    }
+                    if (m.name == "shalwar_suits") {
+                        ShalwarSuits.push(m)
+                    }
+                    if (m.name == "hoodies") {
+                        Hoodies.push(m)
+                    }
+                    if (m.name == "coat_pants") {
+                        CoatsBlazers.push(m)
+                    }
+                    if (m.name == "trousers") {
+                        Trousers.push(m)
+                    }
+                    if (m.name == "kurtas") {
+                        Kurtas.push(m)
+                    }
+                    if (m.name == "waistcoats") {
+                        WaistCoats.push(m)
+                    }
+                    if (m.name == "coats_blazers") {
+                        CoatsBlazers.push(m)
+                    }
+                    if (m.name == "formal_pants") {
+                        FormalPants.push(m)
+                    }
+                    if (m.name == "graphic_tees") {
+                        GraphicTees.push(m)
+                    }
+                    if (m.name == "shirts") {
+                        Shirts.push(m)
+                    }
+                    setdenimjeans(DenimJeans)
+                    setjackets(Jackets)
+                    setsweatshirts(SweatShirts)
+                    setpoloshirts(PoloShirts)
+                    setbasictees(BasicTees)
+                    setshalwarsuits(ShalwarSuits)
+                    sethoodies(Hoodies)
+                    setcoatpants(CoatPants)
+                    settrousers(Trousers)
+                    setkurtas(Kurtas)
+                    setwaistcoats(WaistCoats)
+                    setcoatsblazers(CoatsBlazers)
+                    setformalpants(formalpants)
+                    setgraphictees(GraphicTees)
+                    setshirts(Shirts)
+                }
+                )
+            })
 
-        //         const data = await response.json();
-        //         // setcountCheck(filtercountCheck)
-        //         const mydata = processData(data);
 
-        //         setproducts(mydata)
-        //         setCategcount(countCheck)
-
-        //     } catch (error) {
-        //         console.error("Error:", error);
-        //     }
-        // }
-
-        // fetchData();
-        // fetch("http://localhost:3000/data/product/fetch")
-        //     .then(response => {
-        //         if (!response.ok) {
-        //             throw new Error("Network response was not ok");
-        //         }
-        //         return response.json();
-        //     })
-        //     .then(data => {
-        //         setCategcount(countCheck)
-        //         const mydata = processData(data);
-        //         setproducts(mydata);
+        }
         fetch("http://localhost:3000/data/product/fetch")
             .then(response => {
                 if (!response.ok) {
@@ -157,6 +231,7 @@ export default function ProductPage() {
             .then(data => {
                 setCategcount(countCheck)
                 const newdata = processData(data)
+                const splitdata = SplitCategories(newdata)
                 setproducts(newdata)
                 setIsLoading(false)
             })
@@ -353,19 +428,17 @@ export default function ProductPage() {
             </div>
             <div className="flex flex-col items-center mt-[1rem]">
                 <Category header={"Pants"} />
-                <div className="flex w-full">
-                    <Productpanel />
-
-
+                <section id="pants" className="flex w-full">
+                    {/* <Productpanel /> */}
 
                     {/* first we travserse a single subcategory from an array of many subcategories as our data has a list of them */}
                     {isLoading ? (
                         <Loaders />
                     ) : (
-                        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4">
                             {
-                                products.slice(0, 4).map((category, categoryIndex) => (
-                                    category.sub_categories.map((subcategories, categoriesIndex) => (
+                                products.slice(0, 2).map((category, categoryIndex) => (
+                                    category.sub_categories.filter(subcategories => subcategories.name === "denim_jeans").map((subcategories, subindex) => (
                                         subcategories.data.map((item, itemIndex) => (
                                             <Product
                                                 prodpic={item.images[0]}
@@ -375,12 +448,51 @@ export default function ProductPage() {
                                                 category={category.name}
                                                 subcategory={subcategories.name}
                                                 productId={item.unique_identifier}
-                                                star
+                                                rating={item.average_rating}
                                             />
+
                                         )
                                         )
                                     )
-                                    )))
+                                    )
+                                )
+                                )
+                            }
+
+                        </div>
+                    )}
+                </section>
+
+                {/* All the jacket subcategories are here */}
+                <Category header={"Jackets"} />
+                <section id="jackets" className="flex w-full">
+
+                    {/* first we travserse a single subcategory from an array of many subcategories as our data has a list of them */}
+                    {isLoading ? (
+                        <Loaders />
+                    ) : (
+                        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4">
+                            {
+                                products.slice(0, 1).map((category, categoryIndex) => (
+                                    category.sub_categories.filter(subcategories => subcategories.name === "jackets").map((subcategories, subindex) => (
+                                        subcategories.data.map((item, itemIndex) => (
+                                            <Product
+                                                prodpic={item.images[0]}
+                                                productname={item.title}
+                                                reviews={item.total_reviews}
+                                                newprice={item.real_price}
+                                                category={category.name}
+                                                subcategory={subcategories.name}
+                                                productId={item.unique_identifier}
+                                                rating={item.average_rating}
+                                            />
+
+                                        )
+                                        )
+                                    )
+                                    )
+                                )
+                                )
                             }
 
                         </div>
@@ -388,21 +500,87 @@ export default function ProductPage() {
 
 
 
-                </div>
+                </section>
+
+                {/* The trouser subcategory here */}
+                {/* All the jacket subcategories are here */}
                 <Category header={"Trousers"} />
-                <div className="flex">
-                    <FakePanel />
-                    <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3">
+                <section id="trousers" className="flex w-full">
 
-                    </div>
-                </div>
-                <Category header={"Shirts"} />
-                <div className="flex">
-                    <FakePanel />
-                    <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3">
+                    {/* first we travserse a single subcategory from an array of many subcategories as our data has a list of them */}
+                    {isLoading ? (
+                        <Loaders />
+                    ) : (
+                        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4">
+                            {
+                                products.slice(0, 1).map((category, categoryIndex) => (
+                                    category.sub_categories.filter(subcategories => subcategories.name === "trousers").map((subcategories, subindex) => (
+                                        subcategories.data.map((item, itemIndex) => (
+                                            <Product
+                                                prodpic={item.images[0]}
+                                                productname={item.title}
+                                                reviews={item.total_reviews}
+                                                newprice={item.real_price}
+                                                category={category.name}
+                                                subcategory={subcategories.name}
+                                                productId={item.unique_identifier}
+                                                rating={item.average_rating}
+                                            />
 
-                    </div>
-                </div>
+                                        )
+                                        )
+                                    )
+                                    )
+                                )
+                                )
+                            }
+
+                        </div>
+                    )}
+
+
+
+                </section>
+
+                {/* All Shalwar Suits here */}
+                <Category header={"Kurta Shalwar"} />
+                <section id="kurta_shalwar" className="flex w-full">
+
+                    {/* first we travserse a single subcategory from an array of many subcategories as our data has a list of them */}
+                    {isLoading ? (
+                        <Loaders />
+                    ) : (
+                        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4">
+                            {
+                                products.slice(0, 1).map((category, categoryIndex) => (
+                                    category.sub_categories.filter(subcategories => subcategories.name === "shalwar_suits").map((subcategories, subindex) => (
+                                        subcategories.data.map((item, itemIndex) => (
+                                            <Product
+                                                prodpic={item.images[0]}
+                                                productname={item.title}
+                                                reviews={item.total_reviews}
+                                                newprice={item.real_price}
+                                                category={category.name}
+                                                subcategory={subcategories.name}
+                                                productId={item.unique_identifier}
+                                                rating={item.average_rating}
+                                            />
+
+                                        )
+                                        )
+                                    )
+                                    )
+                                )
+                                )
+                            }
+
+                        </div>
+                    )}
+
+
+
+                </section>
+
             </div>
 
             <Footer />
@@ -419,7 +597,7 @@ function Category({ header }) {
 
 function Loaders() {
     return (
-        <div className="grid gap-32 mx-4 w-[222rem] grid-cols-1 sm:grid-cols-2 xl:grid-cols-3">
+        <div className="grid gap-32 mx-4 w-[222rem] grid-cols-1 sm:grid-cols-2 xl:grid-cols-4">
             <div className=" h-[52vh] bg-gray-100 animate-pulse"></div>
             <div className=" h-[52vh] bg-gray-100 animate-pulse"></div>
             <div className=" h-[52vh] bg-gray-100 animate-pulse"></div>

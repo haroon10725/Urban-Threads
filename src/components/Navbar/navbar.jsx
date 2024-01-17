@@ -32,6 +32,10 @@ export default function Navbar() {
                         <hr className="bg-black h-[2px]" />
                         <a href="http://localhost:5173/cart"><li className="a1 cursor-pointer text-2xl">Cart</li></a>
                         <hr className="bg-black h-[2px]" />
+                        <a href="http://localhost:5173/pants"><li className="a1 cursor-pointer text-2xl">Pants</li></a>
+                        <hr className="bg-black h-[2px]" />
+                        <a href="http://localhost:5173/trousers"><li className="a1 cursor-pointer text-2xl">Trousers</li></a>
+                        <hr className="bg-black h-[2px]" />
                     </div>
                 </div>
             </div>
@@ -78,8 +82,9 @@ export default function Navbar() {
                         <div className="col-span-7 flex justify-evenly items-center">
                             <a href="http://localhost:5173/product"> <li className="text-xl cursor-pointer">Products</li></a>
                             <a href="http://localhost:5173/order"> <li className="text-xl cursor-pointer">Orders</li></a>
-                            <a href=""> <li className="text-xl cursor-pointer">Pants</li></a>
-                            <a href=""> <li className="text-xl cursor-pointer">Trouser</li></a>
+
+                            <a href="http://localhost:5173/product/#pants"> <li className="text-xl cursor-pointer">Pants</li></a>
+                            <a href="http://localhost:5173/product/#trousers"> <li className="text-xl cursor-pointer">Trouser</li></a>
 
 
                         </div>
@@ -95,7 +100,7 @@ export default function Navbar() {
 
                     </ul>
                 </div>
-            </div>
+            </div >
         </div >
     );
 }
